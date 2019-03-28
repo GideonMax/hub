@@ -1,0 +1,22 @@
+{
+  "name": "hub",
+  "version": "1.0.0",
+  "description": "hub",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GideonMax/hub.git"
+  },
+  "author": "gidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GideonMax/hub/issues"
+  },
+  "homepage": "https://github.com/GideonMax/hub#readme",
+  "dependencies": {
+    "nodemailer": "^6.0.0"
+  }
+}
