@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/GideonMax/hub#readme",
   "dependencies": {
-    "nodemailer": "^6.0.0"
+    "exceljs": "^1.9.1",
+    "nodemailer": "^6.1.1"
   }
 }
