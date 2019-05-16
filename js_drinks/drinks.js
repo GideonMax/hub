@@ -1,0 +1,64 @@
+let fs = require('fs')
+
+function stat_file_increment(product/*product serial number*/,file,serialization_number_array)
+{
+  if(! fs.existsSync(file) )
+  {
+    // initialize file as array of zeros if it does not exist
+    var str = ""
+    for(var i =1;i<serialization_number_array.length;i++)str+="0\n"
+    str+="0"
+    fs.writeFileSync(file,str)
+  }
+
+  var file_text = fs.readFileSync(file).toString()
+  var str_arr = file_text.split("\n") //convert file to array
+  if(str_arr[str_arr.length-1] =="")str_arr.pop()
+  if(str_arr.length < serialization_number_array.length)
+  {
+    for(var idx = str_arr.length;idx<=serialization_number_array.length;idx++)str_arr.push("0")
+  }
+  if(str_arr.length > serialization_number_array.length)
+  {
+    console.error("the file has more values then there are registered products/statistics in the serialization array\nthis could be a result of removing an item from serialization array without removing the item's value from the text file\nif you still have access to the previous version of the serialization array, you should compare it to the new serialization array and remove the necessary lines\nif you don't have access to it, you should reinitiate the file by removing it\nif this bug is not the result of changing the serialization array but a result of changing the file, either change the serialization array to reflect the changes made to the file or revert the changes made to the file\nit is reccomended to use the given functions to make any changes");
+    return
+  }
+
+  var int = str_arr[product] //get the number of the specified drink
+  int++
+  str_arr[product]= int.toString() //put number back in the array
+  file_text = str_arr.join("\n")//convert to string
+  fs.writeFileSync(file,file_text)
+  return
+}
+
+function load_serialization(file)//this function returns an array of strings where an item's index is its serialization number (its name)
+{
+  return JSON.parse( fs.readFileSync(file).toString())
+}
+
+function save_serialization(i_serialization_number_array,file)
+{
+  fs.writeFileSync(file, JSON.stringify(i_serialization_number_array))
+  return
+}
+
+function remove_stat_by_num(serial_number, serialization_array,stats_file)
+{
+    var file_text = fs.readFileSync(stats_file).toString()
+    var str_arr = file_text.split("\n")
+    str_arr.splice(serial_number,1)
+    serialization_array.splice(serial_number,1)
+    fs.writeFileSync(stats_file,str_arr.join("\n"))
+    return serialization_array
+}
+
+function remove_stat_by_name(name, serialization_array,stats_file)
+{
+  for(var i = 0;i<serialization_array.length;i++)
+  {
+    if(serialization_array[i]==name)return remove_stat_by_num(i,serialization_array,stats_file)
+  }
+  console.error("there was no such item");
+  return serialization_array
+}
