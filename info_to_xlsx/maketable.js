@@ -59,5 +59,3 @@ async function mailfile(filep,filen,sendto,mail,password) {
     console.log('Email sent: ' + info.response)
   }
 })}
-
-return
