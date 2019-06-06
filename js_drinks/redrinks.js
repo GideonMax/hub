@@ -25,3 +25,21 @@ function set_stats_file(array,file)
   fs.writeFileSync(file,text)
   return
 }
+
+function load_serialization(file)//this function returns an array of strings where an item's index is its serialization number (its name)
+{
+  return JSON.parse( fs.readFileSync(file).toString())
+}
+
+function save_serialization(i_serialization_number_array,file)
+{
+  fs.writeFileSync(file, JSON.stringify(i_serialization_number_array))
+  return
+}
+
+function add_stat(name,serialization_array,stats_file)
+{
+  serialization_array.push(name)
+  fs.appendFileSync(stats_file,"\n0")
+  return serialization_array
+}

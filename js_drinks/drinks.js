@@ -91,18 +91,6 @@ function remove_stat_by_name(name, serialization_array,stats_file)
   console.error("there was no such item");
   return serialization_array
 }
-
-function get_stat_by_num(serial_number, stats_file)
-{
-  var file_text = fs.readFileSync(stats_file).toString()
-  var str_arr = file_text.split("\n") //convert file to array
-  return parseInt(str_arr[serial_number])
-}
-function get_stat_by_name(name, stats_file, serialization_array)
-{
-  if(! serialization_array.includes(name))return false
-  return get_stat_by_num(serialization_array.indexOf(name),stats_file)
-}
 function add_stat(name,serialization_array,stats_file)
 {
   serialization_array.push(name)
