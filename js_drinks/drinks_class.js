@@ -77,6 +77,14 @@ class stats_handler {
   {
     this.remove_stat_by_num(this.ser_ar.indexOf(name))
   }
+  get_stat_by_num(num)
+  {
+    return this.stats_ar[num]
+  }
+  get_stat_by_name(name)
+  {
+    return this.get_stat_by_num(this.ser_ar.indexOf(name))
+  }
   output()
   {
     console.log(this.stats_f);
