@@ -87,6 +87,6 @@ class stats_handler {
 }
 
 let a = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
-a.add_stat("yes")
+
 a.save_stats()
 a.save_serialization()
