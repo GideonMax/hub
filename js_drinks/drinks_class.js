@@ -1,4 +1,6 @@
+let express = require('express')
 let fs= require('fs')
+var app = express()
 
 class stats_handler {
   constructor(stats_file,serialization_file)
@@ -93,8 +95,16 @@ class stats_handler {
     console.log(this.ser_ar);
   }
 }
-
-let a = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
-
-a.save_stats()
-a.save_serialization()
+function yes(req,res)
+{
+  res.sendFile(__dirname+'/test.html')
+}
+function ret(req,res)
+{
+  let a = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
+  var s = a.get_stat_by_num( req.body.a)
+  res.send(""+s)
+}
+app.get('/test.html', (req,res)=> yes(req,res))
+app.post('/thing.get',(req,res)=> ret(req,res))
+app.listen(3000)
