@@ -99,12 +99,13 @@ function yes(req,res)
 {
   res.sendFile(__dirname+'/test.html')
 }
-function ret(req,res)
+function reta(req,res)
 {
-  let a = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
-  var s = a.get_stat_by_num( req.body.a)
+  let b = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
+  console.log( req.query);
+  var s = b.get_stat_by_num(req.body.a)
   res.send(""+s)
 }
 app.get('/test.html', (req,res)=> yes(req,res))
-app.post('/thing.get',(req,res)=> ret(req,res))
+app.post('/thing.get',(req,res)=> reta(req,res))
 app.listen(3000)
