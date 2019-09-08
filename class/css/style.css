@@ -34,3 +34,9 @@ nav li {
 	border: thin solid tomato;
 	flex: 1;
 }
+nav li a:link {
+	display: block;
+	padding: 0.5em;
+	text-align: center;
+	text-decoration: none;
+}
