@@ -1,0 +1,36 @@
+body {
+	background-color: skyblue;
+	color: brown;
+	font-family: Arial, sans-serif;
+  	margin: auto;
+  	width: 50em;
+}
+h1 {
+	color: green;
+	text-align: center;
+}
+p
+{
+  background-color: silver;
+  border: thin solid navy;
+}
+p.ca
+{
+  padding: 0.1em;
+  margin: 1em;
+}
+p.cb
+{
+  padding: 1em;
+  margin: 0.1em;
+}
+nav ul {
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+nav li {
+	border: thin solid tomato;
+	flex: 1;
+}
