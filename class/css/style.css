@@ -40,3 +40,25 @@ nav li a:link {
 	text-align: center;
 	text-decoration: none;
 }
+nav li a:hover
+{
+  padding: 1em;
+  background-color: orange;
+  color: darkblue;
+}
+
+img,form{
+	padding: 0.5em;
+}
+table.cool{
+	width: 50em;
+	margin: auto;
+}
+table.cool th{
+	background-color: purple;
+	color: white;
+}
+table.cool td{
+	background-color: azure;
+	border-color: purple;
+}
