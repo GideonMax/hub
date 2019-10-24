@@ -75,4 +75,4 @@ var k =
   yes:['a','schoooool','3','not a phone number, you have been bumboozled','true','false', 'CAT']
 }
 //object_to_xlsx(k,'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx')
-mailfile('C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/','test.xlsx','gideon.max.merling@gmail.com','gideon.max.merling@gmail.com','123re123ewq')
+mailfile('C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/','test.xlsx','gideon.max.merling@gmail.com','merkaz.noar.mail@gmail.com','hubpassword1029384756')
