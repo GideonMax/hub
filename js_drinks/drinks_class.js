@@ -1,7 +1,8 @@
 let express = require('express')
 let fs= require('fs')
 var app = express()
-
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
 class stats_handler {
   constructor(stats_file,serialization_file)
   {
@@ -95,6 +96,7 @@ class stats_handler {
     console.log(this.ser_ar);
   }
 }
+/*
 function yes(req,res)
 {
   res.sendFile(__dirname+'/test.html')
@@ -102,10 +104,11 @@ function yes(req,res)
 function reta(req,res)
 {
   let b = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
-  console.log( req.query);
+  console.log(req.body);
   var s = b.get_stat_by_num(req.body.a)
   res.send(""+s)
 }
 app.get('/test.html', (req,res)=> yes(req,res))
 app.post('/thing.get',(req,res)=> reta(req,res))
 app.listen(3000)
+*/
