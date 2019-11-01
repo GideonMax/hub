@@ -17,45 +17,39 @@ class Chart extends HTMLElement {
              this.rectangle.className = 'Chart'
   }
 connectedCallback() {
-  var a = this
+    var values
+    var names
     $.get("/test.dat", function(data,status){
-      var values = data.stat_values;
-      var names = data.stat_names;
-      var Max = values.reduce(function(a,b){return Math.max(a,b)})
-      for(var i =0; i<values.length;i++)
+      values = data.stat_values;
+      names = data.stat_names;
+    }).then( (_)=>{
+    var Max = values.reduce(function(a,b){return Math.max(a,b)})
+    for(var i =0; i<values.length;i++)
+    {
+      var c_collumn = document.createElement("div");
+      c_collumn.className="Chart-Container";
+      if(values[i]*100/Max>0)
       {
-        //console.log("start");
-        //console.log(a.Container);
-        var c_collumn = document.createElement("div");
-        c_collumn.className="Chart-Container";
-        if(values[i]*100/Max>0)
-        {
-          c_collumn.style.height=(values[i]*100/Max)+"%"
-        }
-        else {
-          c_collumn.style.height="15.48%"
-        }
-        var c_value= document.createElement("div");
-        c_value.className='Chart-Title';
-        c_value.innerText=""+ values[i];
-        console.log(c_value.innerText);
-        c_collumn.appendChild(c_value);
-        var c_rectangle =document.createElement("div");
-        c_rectangle.className= 'Chart';
-        c_rectangle.style.height= "87%"
-        c_collumn.appendChild(c_rectangle);
-        var c_Title = document.createElement("div");
-        c_Title.className='Chart-Title';
-        c_Title.innerText= names[i]
-        c_collumn.appendChild(c_Title);
-        console.log(c_collumn);
-        a.Container.appendChild(c_collumn);
-        //console.log("end");
-        //console.log(a.Container);
+        c_collumn.style.height=(values[i]*100/Max)+"%"
       }
-      a.appendChild(a.Container);
-    })
-    //console.log("d2"+names);
+      else {
+        c_collumn.style.height="15.48%"
+      }
+      var c_value= document.createElement("div");
+      c_value.className='Chart-Title';
+      c_value.innerText=""+ values[i];
+      c_collumn.appendChild(c_value);
+      var c_rectangle =document.createElement("div");
+      c_rectangle.className= 'Chart';
+      c_rectangle.style.height= "87%"
+      c_collumn.appendChild(c_rectangle);
+      var c_Title = document.createElement("div");
+      c_Title.className='Chart-Title';
+      c_Title.innerText= names[i]
+      c_collumn.appendChild(c_Title);
+      this.Container.appendChild(c_collumn);
+    }
+    this.appendChild(this.Container);},(error)=>{console.error(error);} )
 
 }
 }

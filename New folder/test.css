@@ -54,7 +54,7 @@ x-chart > .Active-Chart .Chart-Title{
 
 .Chart{
 height: calc(100% - 46px);
-width: 100%;
+width: 40px;
 background-color: #c9c9c9;
 margin: auto;
 
