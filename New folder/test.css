@@ -41,7 +41,6 @@ x-chart > .Active-Chart .Chart-Title{
   justify-content: space-between;
 }
 .Chart-Container{
-  width: 20%;
   display: flex;
   flex-flow: column;
   align-items: center;

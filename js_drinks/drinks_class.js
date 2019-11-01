@@ -3,7 +3,8 @@ let fs= require('fs')
 var app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
-class stats_handler {
+module.exports ={
+stats_handler:class {
   constructor(stats_file,serialization_file)
   {
     this.stats_f=stats_file
@@ -95,7 +96,7 @@ class stats_handler {
     console.log(this.ser_f);
     console.log(this.ser_ar);
   }
-}
+}};
 /*
 function yes(req,res)
 {
