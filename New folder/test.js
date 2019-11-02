@@ -2,19 +2,11 @@ class Chart extends HTMLElement {
   constructor () {
     super();
              this.Container = document.createElement("div");
-             this.collumn = document.createElement("div");
-             this.value = document.createElement("div");
-             this.Title = document.createElement("div");
-             this.rectangle = document.createElement("div");
 
              this.Container.style.height = "250px";
              this.Container.style.width = "250px";
 
-             this.collumn.className = "Chart-Container";
              this.Container.className = 'diagram-Container';
-             this.value.className = 'Chart-Title';
-             this.Title.className = 'Chart-Title';
-             this.rectangle.className = 'Chart'
   }
 connectedCallback() {
     var values
