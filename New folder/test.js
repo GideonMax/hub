@@ -47,3 +47,11 @@ connectedCallback() {
 }
 
 window.customElements.define('x-chart', Chart);
+
+$(document).ready( ()=>{
+  $.get("/barmen.dat",(data,status)=>{
+    /*
+    data now contains a JSON like object that looks exactly like the "barmen" branch in the database
+    */
+  })
+} )
