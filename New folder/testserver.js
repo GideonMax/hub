@@ -31,9 +31,9 @@ app.get("/*",function(req,res){
 
 
 app.get("/barmen.dat",function(req,res){
-  barmen.once('value',(data=>{
+  barmen.once('value',(data)=>{
     res.send(data.val())
-  }))
+  })
 })
 
 
