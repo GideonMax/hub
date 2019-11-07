@@ -29,6 +29,15 @@ app.get("/*",function(req,res){
   res.sendFile(__dirname+"/XChart.html")
 })
 
+
+app.get("/barmen.dat",function(req,res){
+  var c = new Date()
+
+  barmen.child(day(Date.getDay())).once('value',(data)=>{
+    res.send(data.val())
+  })
+})
+
 function day(da)
 {
     if(da>6||da<0)return null;
@@ -43,14 +52,5 @@ function day(da)
         case 6: return "Saturday"
     }
 }
-
-app.get("/barmen.dat",function(req,res){
-  var c = new Date()
-
-  barmen.child(day(Date.getDay())).once('value',(data)=>{
-    res.send(data.val())
-  })
-})
-
 
 app.listen(3000)
