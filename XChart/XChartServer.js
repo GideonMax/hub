@@ -29,9 +29,25 @@ app.get("/*",function(req,res){
   res.sendFile(__dirname+"/XChart.html")
 })
 
+function day(da)
+{
+    if(da>6||da<0)return null;
+    switch(da)
+    {
+        case 0: return "Sunday"
+        case 1: return "Monday"
+        case 2: return "Tuesday"
+        case 3: return "Wednesday"
+        case 4: return "Thursday"
+        case 5: return "Friday"
+        case 6: return "Saturday"
+    }
+}
 
 app.get("/barmen.dat",function(req,res){
-  barmen.once('value',(data)=>{
+  var c = new Date()
+
+  barmen.child(day(Date.getDay())).once('value',(data)=>{
     res.send(data.val())
   })
 })

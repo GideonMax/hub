@@ -47,6 +47,7 @@ connectedCallback() {
 }
 
 window.customElements.define('x-chart', Chart);
+/////PULL BARMEN FROM DATA BASE
 /*
 $(document).ready( ()=>{
   $.get("/barmen.dat",(data,status)=>{
@@ -55,4 +56,15 @@ $(document).ready( ()=>{
 
   })
 } )
+*/
+
+
+/////
+/*
+
+
+
+
+
+
 */
