@@ -9,7 +9,7 @@ class Chart extends HTMLElement {
 connectedCallback() {
     var values
     var names
-    $.get("/test.dat", function(data,status){
+    $.get("/XChart.dat", function(data,status){
       values = data.stat_values;
       names = data.stat_names;
     }).then( (_)=>{

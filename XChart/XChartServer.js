@@ -15,7 +15,7 @@ admin.initializeApp({
 });
 var db = admin.database();
 var ref = db.ref('/');
-app.get("/test.dat",function(req,res){
+app.get("/XChart.dat",function(req,res){
   var handler = new drinks.stats_handler(__dirname+"/drinks.txt",__dirname+"/serialization.txt")
   res.send({stat_values:handler.stats_ar ,stat_names: handler.ser_ar} )
 })
@@ -23,10 +23,10 @@ app.get("/XChartWC.js",function(req,res){
   res.sendFile(__dirname+"/XChartWX.js")
 })
 app.get("/test.css",function(req,res){
-  res.sendFile(__dirname+"/test.css")
+  res.sendFile(__dirname+"/XChart.css")
 })
 app.get("/*",function(req,res){
-  res.sendFile(__dirname+"/test.html")
+  res.sendFile(__dirname+"/XChart.html")
 })
 
 
