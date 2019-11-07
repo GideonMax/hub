@@ -1,12 +1,10 @@
 class Chart extends HTMLElement {
   constructor () {
     super();
-             this.Container = document.createElement("div");
-
-             this.Container.style.height = "250px";
-             this.Container.style.width = "250px";
-
-             this.Container.className = 'diagram-Container';
+    this.Container = document.createElement("div");
+    this.Container.style.height = "250px";
+    this.Container.style.width = "250px";
+    this.Container.className = 'diagram-Container';
   }
 connectedCallback() {
     var values
@@ -41,17 +39,20 @@ connectedCallback() {
       c_collumn.appendChild(c_Title);
       this.Container.appendChild(c_collumn);
     }
-    this.appendChild(this.Container);},(error)=>{console.error(error);} )
+    this.appendChild(this.Container);
+  }
+  ,(error)=>{console.error(error);} )
 
 }
 }
 
 window.customElements.define('x-chart', Chart);
-
+/*
 $(document).ready( ()=>{
   $.get("/barmen.dat",(data,status)=>{
-    /*
+
     data now contains a JSON like object that looks exactly like the "barmen" branch in the database
-    */
+
   })
 } )
+*/
