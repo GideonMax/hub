@@ -4,7 +4,7 @@ var fs = require('fs');
 const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 let ejs = require('ejs')
-const drinks =  require('../js_drinks/drinks_class.js');
+const drinks =  require('../js_stats/stats_handler.js');
 app.use(bodyPraser.urlencoded({ extended: true }));
 
 var serviceAccount = require(__dirname+ "/fire.json");
@@ -16,11 +16,11 @@ admin.initializeApp({
 var db = admin.database();
 var ref = db.ref('/');
 app.get("/XChart.dat",function(req,res){
-  var handler = new drinks.stats_handler(__dirname+"/drinks.txt",__dirname+"/serialization.txt")
+  var handler = new drinks.stats_handler('../js_stats/statTest')
   res.send({stat_values:handler.stats_ar ,stat_names: handler.ser_ar} )
 })
 app.get("/XChartWC.js",function(req,res){
-  res.sendFile(__dirname+"/XChartWX.js")
+  res.sendFile(__dirname+"/XChartWC.js")
 })
 app.get("/test.css",function(req,res){
   res.sendFile(__dirname+"/XChart.css")
@@ -29,7 +29,7 @@ app.get("/*",function(req,res){
   res.sendFile(__dirname+"/XChart.html")
 })
 
-
+/*
 app.get("/barmen.dat",function(req,res){
   var c = new Date()
 
@@ -37,7 +37,7 @@ app.get("/barmen.dat",function(req,res){
     res.send(data.val())
   })
 })
-
+*/
 function day(da)
 {
     if(da>6||da<0)return null;

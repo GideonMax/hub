@@ -1,6 +1,11 @@
 class Chart extends HTMLElement {
   constructor () {
     super();
+    this.shadow = this.attachShadow({ 'mode': 'open' });
+    var link = document.createElement("link");
+    link.rel="stylesheet";
+    link.href="test.css";
+    this.shadow.appendChild(link);
     this.Container = document.createElement("div");
     this.Container.style.height = "250px";
     this.Container.style.width = "250px";
@@ -9,10 +14,9 @@ class Chart extends HTMLElement {
 connectedCallback() {
     var values
     var names
-    $.get("/XChart.dat", function(data,status){
-      values = data.stat_values;
-      names = data.stat_names;
-    }).then( (_)=>{
+    $.get("/XChart.dat", (data,status)=>{
+    values = data.stat_values;
+    names = data.stat_names;
     var Max = values.reduce(function(a,b){return Math.max(a,b)})
     for(var i =0; i<values.length;i++)
     {
@@ -39,9 +43,8 @@ connectedCallback() {
       c_collumn.appendChild(c_Title);
       this.Container.appendChild(c_collumn);
     }
-    this.appendChild(this.Container);
-  }
-  ,(error)=>{console.error(error);} )
+    this.shadow.appendChild(this.Container);
+  } )
 
 }
 }

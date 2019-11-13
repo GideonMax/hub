@@ -5,10 +5,16 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 module.exports ={
 stats_handler:class {
-  constructor(stats_file,serialization_file)
+  constructor(folder)
   {
-    this.stats_f=stats_file
-    this.ser_f=serialization_file
+    this.stats_f=folder+"/stats.txt"
+    this.ser_f=folder+"/serialization.txt"
+    if(! fs.existsSync(folder))
+    {
+      fs.mkdirSync(folder)
+      fs.writeFileSync(this.stats_f,"")
+      fs.writeFileSync(this.ser_f,"[]")
+    }
     this.load_stats()
     this.load_serialization()
   }
