@@ -6,7 +6,7 @@ app.use(bodyPraser.json());
 let ejs = require('ejs')
 const drinks =  require('../js_stats/stats_handler.js');
 app.use(bodyPraser.urlencoded({ extended: true }));
-
+/*
 var serviceAccount = require(__dirname+ "/fire.json");
 var admin = require("firebase-admin");
 admin.initializeApp({
@@ -14,7 +14,8 @@ admin.initializeApp({
     databaseURL: "https://test-40ac5.firebaseio.com"
 });
 var db = admin.database();
-var ref = db.ref('/');
+var ref = db.ref('/');*/
+
 app.get("/XChart.dat",function(req,res){
   var handler = new drinks.stats_handler('../js_stats/statTest')
   res.send({stat_values:handler.stats_ar ,stat_names: handler.ser_ar} )
