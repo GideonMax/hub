@@ -25,7 +25,6 @@ connectedCallback() {
     var Max = values.reduce(function(a,b){return Math.max(a,b)});
     for(var i =0; i<values.length;i++)
     {
-
       var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and rectangle
       c_collumn.className="Chart-Container";
       if(values[i]>0)
