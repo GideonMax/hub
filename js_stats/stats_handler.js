@@ -94,5 +94,3 @@ stats_handler:class {
     }
   }
 }};
-
-var st = new module.exports.stats_handler('./statTest')

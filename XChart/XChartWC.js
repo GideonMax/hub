@@ -12,7 +12,7 @@ class Chart extends HTMLElement {
     this.shadow.appendChild(link);
     this.Container = document.createElement("div");
     this.Container.style.height = "250px";
-    this.Container.style.width = "250px";
+    //this.Container.style.width = "250px";
     this.Container.className = 'diagram-Container';
   }
 connectedCallback() {
@@ -21,7 +21,8 @@ connectedCallback() {
     $.get("/XChart.dat", (data,status)=>{
     values = data.stat_values;
     names = data.stat_names;
-    var Max = values.reduce(function(a,b){return Math.max(a,b)})
+    this.Container.style.width= 55*values.length+"px";
+    var Max = values.reduce(function(a,b){return Math.max(a,b)});
     for(var i =0; i<values.length;i++)
     {
 
