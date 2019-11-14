@@ -15,10 +15,20 @@ stats_handler:class {
       fs.writeFileSync(this.stats_f,"")
       fs.writeFileSync(this.ser_f,"[]")
     }
-    this.load_stats()
-    this.load_serialization()
+    this.load()
   }
-  load_stats()
+  save()
+  {
+    var a =[]
+    for(var i =0;i<this.stats_ar.length;i++)
+    {
+      a.push("" + this.stats_ar[i])
+    }
+    var text = a.join('\n')
+    fs.writeFileSync(this.stats_f,text)
+    fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar))
+  }
+  load()
   {
     var file_text = fs.readFileSync(this.stats_f).toString()
     var str_arr = file_text.split("\n")
@@ -29,93 +39,60 @@ stats_handler:class {
       a.push( parseInt(  str_arr[i]))
     }
     this.stats_ar =a
-  }
-  save_stats()
-  {
-    var a =[]
-    for(var i =0;i<this.stats_ar.length;i++)
-    {
-      a.push("" + this.stats_ar[i])
-    }
-    var text = a.join('\n')
-    fs.writeFileSync(this.stats_f,text)
-  }
-  load_serialization()
-  {
     this.ser_ar= JSON.parse( fs.readFileSync(this.ser_f).toString())
-  }
-  save_serialization()
-  {
-    fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar))
   }
   add_stat(name)
   {
     this.ser_ar.push(name)
     this.stats_ar.push(0)
   }
-  increase_stat_by_num(stat,amount)
+  get(stat)
   {
-    this.stats_ar[stat]+=amount
+    if(typeof stat == 'string')
+    {
+      stat=this.ser_ar.indexOf(stat)
+    }
+    return this.stats_ar[stat]
   }
-  increase_stat_by_name(name,amount)
+  set(stat,value)
   {
-    this.increase_stat_by_num( this.ser_ar.indexOf(name),amount)
-  }
-  set_stat_by_num(stat,value)
-  {
+    if(typeof stat == 'string')
+    {
+      stat=this.ser_ar.indexOf(stat)
+    }
     this.stats_ar[stat]=value
   }
-  set_stat_by_name(name,value)
+  remove(stat)
   {
-    this.set_stat_by_num(this.ser_ar.indexOf(name),value)
+    if(typeof stat == 'string')
+    {
+      stat=this.ser_ar.indexOf(stat)
+    }
+    this.ser_ar.splice(stat,1)
+    this.stats_ar.splice(stat,1)
+  }
+  increase(stat,amount)
+  {
+    if(typeof stat == 'string')
+    {
+      stat=this.ser_ar.indexOf(stat)
+    }
+    this.stats_ar[stat]+=amount
   }
   reset()
   {
     for(var i = 0;i<this.stats_ar.length;i++)
     {
-      this.set_stat_by_num(i,0)
+      this.set(i,0)
     }
   }
-  remove_stat_by_num(num)
+  DebugOutput()
   {
-    this.ser_ar.splice(num,1)
-    this.stats_ar.splice(num,1)
-    this.save_serialization()
-    this.save_stats()
-  }
-  remove_stat_by_name(name)
-  {
-    this.remove_stat_by_num(this.ser_ar.indexOf(name))
-  }
-  get_stat_by_num(num)
-  {
-    return this.stats_ar[num]
-  }
-  get_stat_by_name(name)
-  {
-    return this.get_stat_by_num(this.ser_ar.indexOf(name))
-  }
-  output()
-  {
-    console.log(this.stats_f);
-    console.log(this.stats_ar);
-    console.log(this.ser_f);
-    console.log(this.ser_ar);
+    for(let i =0;i<this.stats_ar.length;i++)
+    {
+      console.log(this.ser_ar[i]+": "+this.stats_ar[i]);
+    }
   }
 }};
-/*
-function yes(req,res)
-{
-  res.sendFile(__dirname+'/test.html')
-}
-function reta(req,res)
-{
-  let b = new stats_handler("C:/Users/Gidi/Documents/GitHub/hub/js_drinks/drinks.txt","C:/Users/Gidi/Documents/GitHub/hub/js_drinks/serialization.txt")
-  console.log(req.body);
-  var s = b.get_stat_by_num(req.body.a)
-  res.send(""+s)
-}
-app.get('/test.html', (req,res)=> yes(req,res))
-app.post('/thing.get',(req,res)=> reta(req,res))
-app.listen(3000)
-*/
+
+var st = new module.exports.stats_handler('./statTest')
