@@ -86,6 +86,10 @@ stats_handler:class {
       this.set(i,0)
     }
   }
+  indexOf(stat)
+  {
+    return this.ser_ar.indexOf(stat)
+  }
   DebugOutput()
   {
     for(let i =0;i<this.stats_ar.length;i++)
@@ -94,3 +98,5 @@ stats_handler:class {
     }
   }
 }};
+var a = new module.exports.stats_handler('./statTest')
+console.log(a.indexOf('dr5'));
