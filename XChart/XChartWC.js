@@ -5,7 +5,7 @@ class Chart extends HTMLElement {
 
   constructor () {
     super();
-    this.shadow = this.attachShadow({ 'mode': 'open' });
+    this.shadow = this.attachShadow({ mode: 'open' });
     var link = document.createElement("link");
     link.rel="stylesheet";
     link.href="test.css";
@@ -85,7 +85,7 @@ $(document).ready( ()=>{
 /*
 
 ######################################################################################
-#                                                                                    # 
+#                                                                                    #
 #                            ,.--------._                                            #
 #                           /            ''.                                         #
 #                         ,'                \     |"\                /\          /\  #

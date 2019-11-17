@@ -98,5 +98,3 @@ stats_handler:class {
     }
   }
 }};
-var a = new module.exports.stats_handler('./statTest')
-console.log(a.indexOf('dr5'));
