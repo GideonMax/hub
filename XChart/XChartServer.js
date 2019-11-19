@@ -23,7 +23,7 @@ app.get("/XChart.dat",function(req,res){
 app.get("/XChartWC.js",function(req,res){
   res.sendFile(__dirname+"/XChartWC.js")
 })
-app.get("/test.css",function(req,res){
+app.get("/XChart.css",function(req,res){
   res.sendFile(__dirname+"/XChart.css")
 })
 app.get("/*",function(req,res){

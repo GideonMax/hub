@@ -8,7 +8,7 @@ class Chart extends HTMLElement {
     this.shadow = this.attachShadow({ mode: 'open' });
     var link = document.createElement("link");
     link.rel="stylesheet";
-    link.href="test.css";
+    link.href="/XChart.css";
     this.shadow.appendChild(link);
     this.Container = document.createElement("div");
     this.Container.style.height = "250px";
