@@ -59,13 +59,16 @@ getdate:async function (date)
 {
     var a = await module.exports.getbdate(date)
     if(a != null)
-    { return a;}else
+    {
+      return [a];
+    }
+    else
     {
         var b = date.split("-")
-        var c = new Date(parseInt(b[2]),parseInt(b[1]),parseInt(b[0]),1,1,1,1)
-        var nor = module.exports.getnormal(c.getDay())
-        module.exports.setdate(date,nor)
-        return nor;
+        var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1)
+        var nor = await module.exports.getnormal(c.getDay())
+        await module.exports.setdate(date,nor)
+        return [nor,c.getDay()];
     }
 },
 //edit normal days
@@ -90,6 +93,10 @@ editbdate:function(date,activity,value)
 setdate:function (date,value)
 {
     special.child(date).set(value)
+},
+setnormal:function (date,value)
+{
+    normal.child(date).set(value)
 },
 actremovebdate:function (date,activity)
 {

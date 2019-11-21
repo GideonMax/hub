@@ -60,7 +60,8 @@ class Table extends HTMLElement{
           trow.appendChild(td)
         }
         var timeTD=document.createElement("td")
-        timeTD.innerText= Times[a.indexOf(row)]
+        var time =Times[a.indexOf(row)]
+        timeTD.innerText= time.slice(0,2)+":"+time.slice(2)
         trow.appendChild(timeTD)
         this.table.appendChild(trow)
       }
