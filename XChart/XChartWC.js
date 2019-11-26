@@ -12,62 +12,67 @@ class Chart extends HTMLElement {
     this.shadow.appendChild(link);
     this.Container = document.createElement("div");
     this.Container.style.height = "250px";
-    //this.Container.style.width = "250px";
     this.Container.className = 'diagram-Container';
   }
-connectedCallback() {
-    var values
-    var names
+async connectedCallback() {
+  /*
     $.get("/XChart.dat", (data,status)=>{
-    values = data.stat_values;
-    names = data.stat_names;
-    this.Container.style.width= 55*values.length+"px";
-    var Max = values.reduce(function(a,b){return Math.max(a,b)});
-    for(var i =0; i<values.length;i++)
+  } )*/
+  var data =await getData();
+  var values = data.stat_values;
+  var names = data.stat_names;
+  this.Container.style.width= 55*values.length+"px";
+  var Max = values.reduce(function(a,b){return Math.max(a,b)});
+  for(var i =0; i<values.length;i++)
+  {
+    var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and rectangle
+    c_collumn.className="Chart-Container";
+    if(values[i]>0)
     {
-      var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and rectangle
-      c_collumn.className="Chart-Container";
-      if(values[i]>0)
-      {
-        c_collumn.style.height=(values[i]*100/Max)+"%"
-      }
-      else {
-        c_collumn.style.height="15.48%"
-      }
-
-      var c_value= document.createElement("div");//number on top of collumn
-      c_value.className='Chart-Title';
-      c_value.innerText=""+ values[i];
-      c_collumn.appendChild(c_value);
-
-      var c_rectangle =document.createElement("div");//collumn's rectangle
-      c_rectangle.className= 'Chart';
-      c_rectangle.style.height= "87%";
-      if(values[i]==Max)
-      {
-        if(this.hasAttribute('color'))
-        {
-          c_rectangle.style.backgroundColor=this.getAttribute('color')
-        }
-        else
-        {
-          c_rectangle.style.backgroundColor='#e91e63'
-        }
-      }
-      c_collumn.appendChild(c_rectangle);
-
-      var c_Title = document.createElement("div");
-      c_Title.className='Chart-Title';
-      c_Title.innerText= names[i]
-      c_collumn.appendChild(c_Title);
-      this.Container.appendChild(c_collumn);
+      c_collumn.style.height=(values[i]*100/Max)+"%"
     }
-    this.shadow.appendChild(this.Container);
+    else {
+      c_collumn.style.height="15.48%"
+    }
+
+    var c_value= document.createElement("div");//number on top of collumn
+    c_value.className='Chart-Title';
+    c_value.innerText=""+ values[i];
+    c_collumn.appendChild(c_value);
+
+    var c_rectangle =document.createElement("div");//collumn's rectangle
+    c_rectangle.className= 'Chart';
+    c_rectangle.style.height= "87%";
+    if(values[i]==Max)
+    {
+      if(this.hasAttribute('color'))
+      {
+        c_rectangle.style.backgroundColor=this.getAttribute('color')
+      }
+      else
+      {
+        c_rectangle.style.backgroundColor='#e91e63'
+      }
+    }
+    c_collumn.appendChild(c_rectangle);
+
+    var c_Title = document.createElement("div");
+    c_Title.className='Chart-Title';
+    c_Title.innerText= names[i]
+    c_collumn.appendChild(c_Title);
+    this.Container.appendChild(c_collumn);
+  }
+  this.shadow.appendChild(this.Container);
+}
+}
+async function getData()
+{
+  var ret;
+  await $.get("/XChart.dat", (data,status)=>{
+    ret=data
   } )
-
+  return ret
 }
-}
-
 window.customElements.define('x-chart', Chart);
 /////PULL BARMEN FROM DATA BASE
 /*
