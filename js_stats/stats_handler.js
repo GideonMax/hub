@@ -16,6 +16,7 @@ stats_handler:class {
       fs.writeFileSync(this.ser_f,"[]")
     }
     this.load()
+    this.save()
   }
   save()
   {
