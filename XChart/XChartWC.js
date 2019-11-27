@@ -14,10 +14,8 @@ class Chart extends HTMLElement {
     this.Container.style.height = "250px";
     this.Container.className = 'diagram-Container';
   }
+
 async connectedCallback() {
-  /*
-    $.get("/XChart.dat", (data,status)=>{
-  } )*/
   var data =await getData();
   var values = data.stat_values;
   var names = data.stat_names;
