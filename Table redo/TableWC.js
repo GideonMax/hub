@@ -12,7 +12,8 @@ class Table extends HTMLElement{
     link.href="/TableWC.css";
     this.shadow.appendChild(link);
     this.table = document.createElement("table");
-    this.table.innerHTML = `
+
+      this.table.innerHTML = `
                <tr>
                     <th>אולם ראשון</th>
                     <th>אולם שני</th>
@@ -27,26 +28,21 @@ class Table extends HTMLElement{
                `
     this.shadow.appendChild(this.table);
   }
-  attributeChangedCallback(name,oldvalue,newvalue){
-    if(oldvalue==null)return;
-    this.table.innerHTML = `
-             <tr>
-                  <th style="border-left-width:0;">אולם ראשון</th>
-                  <th>אולם שני</th>
-                  <th>אולם שלישי</th>
-                  <th>מזכירות</th>
-                  <th>פנאי</th>
-                  <th>האב</th>
-                  <th>סדנא</th>
-                  <th>בריכה</th>
-                  <th>זמן/אולם</th>
-             </tr>
-             `
-    console.log("here");
-    this.connectedCallback()
-  }
   connectedCallback(){
     $.post("/table.dat",{ day: this.getAttribute('day'), normal: this.hasAttribute('normal')  },(data,status)=>{
+      this.table.innerHTML = `
+               <tr>
+                    <th>אולם ראשון</th>
+                    <th>אולם שני</th>
+                    <th>אולם שלישי</th>
+                    <th>מזכירות</th>
+                    <th>פנאי</th>
+                    <th>האב</th>
+                    <th>סדנא</th>
+                    <th>בריכה</th>
+                    <th>זמן/אולם</th>
+               </tr>
+               `
       var a =new Array(8);
       for (var i = 0; i < a.length; i++) {
         a[i]= new Array(8);

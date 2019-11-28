@@ -5,21 +5,37 @@
     <script type="text/javascript"src="/TableWC.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
-      function change(){
-        var x=document.getElementById("day").value
-        document.getElementById("Ttable").setAttribute("day",x)
+      $(document).ready(()=>{
+        reloadTable()
+      })
+      function reloadTable(){
+        $("#table_container").empty()
+        var table =document.createElement("time-table")
+        var day=document.getElementById("day").value
+        if(day==""){
+        day="9"
+        }
+        table.setAttribute("day",day)
         document.getElementById("day").value=""
+        var normal = document.getElementById("normal").checked;
+        if(normal){
+          table.setAttribute("normal",null)
+        }
+        document.getElementById("table_container").appendChild(table)
       }
+
     </script>
     <title></title>
   </head>
   <body>
-    <input id="day" type="text" name="" value=""> <!-- TODO: replace with <select>-->
-    <input type="checkbox" name="" value="">
-    <button type="button" name="button" onclick="change()">confirm</button>
-    <button type="button" name="button">make change</button>
+    <input id="day" type="text"  value=""> <!-- TODO: replace with <select>-->
+    <input id="normal" type="checkbox" value="" >
+    <button type="button" name="button" onclick="reloadTable()">confirm</button>
+
     <br>
     <br>
-    <time-table id="Ttable" day="0" normal> </time-table>
+    <div id="table_container" class="">
+
+    </div>
   </body>
 </html>

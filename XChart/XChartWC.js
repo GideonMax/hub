@@ -16,7 +16,7 @@ class Chart extends HTMLElement {
   }
 
 async connectedCallback() {
-  var data =await getData();
+  $.get("/XChart.dat", (data,status)=>{
   var values = data.stat_values;
   var names = data.stat_names;
   this.Container.style.width= 55*values.length+"px";
@@ -60,17 +60,9 @@ async connectedCallback() {
     c_Title.innerText= names[i]
     c_collumn.appendChild(c_Title);
     this.Container.appendChild(c_collumn);
-  }
-  this.shadow.appendChild(this.Container);
+    this.shadow.appendChild(this.Container);
+  }})
 }
-}
-async function getData()
-{
-  var ret;
-  await $.get("/XChart.dat", (data,status)=>{
-    ret=data
-  } )
-  return ret
 }
 window.customElements.define('x-chart', Chart);
 /////PULL BARMEN FROM DATA BASE
