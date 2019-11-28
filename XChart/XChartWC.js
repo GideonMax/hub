@@ -1,5 +1,5 @@
 class Chart extends HTMLElement {
-  static get obsrevedAttributes(){
+  static get observedAttributes(){
     return ['color']
   }
 
@@ -45,6 +45,7 @@ async connectedCallback() {
     {
       if(this.hasAttribute('color'))
       {
+        console.log(this.getAttribute('color'));
         c_rectangle.style.backgroundColor=this.getAttribute('color')
       }
       else

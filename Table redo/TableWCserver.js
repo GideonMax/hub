@@ -14,7 +14,6 @@ app.get("/TableWC.css",(req,res)=>{
 })
 
 app.post("/table.dat",async (req,res)=>{
-  console.log(req);
   if(req.body.normal==='true') {
     var ret= await TableFirebase.getnormal( req.body.day );
   }
@@ -30,6 +29,6 @@ app.post("/table.dat",async (req,res)=>{
 })
 
 app.get("/*",(req,res)=>{
-  res.sendFile(__dirname+"/Table.html");
+  res.sendFile(__dirname+"/TableChange.html");
 })
 app.listen(3000)
