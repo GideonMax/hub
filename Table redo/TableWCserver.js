@@ -29,6 +29,6 @@ app.post("/table.dat",async (req,res)=>{
 })
 
 app.get("/*",(req,res)=>{
-  res.sendFile(__dirname+"/Table.html");
+  res.sendFile(__dirname+"/TableChange.html");
 })
 app.listen(3000)
