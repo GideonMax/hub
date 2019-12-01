@@ -14,6 +14,24 @@ var ref = db.ref('/');
 var normal = ref.child("normal")
 var special = ref.child("special")
 module.exports ={
+getdate:async function (date)
+{
+    var a = await module.exports.getbdate(date)
+    if(a != null)
+    {
+      if(a=="empty")
+      return {};
+      return a;
+    }
+    else
+    {
+        var b = date.split("-")
+        var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1)
+        var nor = await module.exports.getnormal(c.getDay())
+        await module.exports.setdate(date,nor)
+        return nor;
+    }
+},
 getnormal:async function (day)
 {
     var a = await normal.child(day).once('value',function(snapshot)
@@ -24,11 +42,22 @@ getnormal:async function (day)
 },
 removedate:function (date)
 {
-    special.child(date).remove()
+    special.child(date).set("empty")
 },
-actremovenormal:function (date,activity)
+deletedate:function(data){
+  special.child(date).remove()
+}
+,
+removenormal:function (date)
 {
-    normal.child(date).child(activity).remove()
+    normal.child(date).remove()
+},
+actremovenormal:async function (date,activity)
+{
+    normal.child(date).child(activity).remove();
+    if(await module.exports.getbdate(date)==null){
+      normal.child(date).set({});
+    }
 },
 actremovedate:async function (date,activity)
 {
@@ -55,22 +84,6 @@ editdate:async function (date,activity,value)
     module.exports.editbdate(date,activity,value)
 },
 
-getdate:async function (date)
-{
-    var a = await module.exports.getbdate(date)
-    if(a != null)
-    {
-      return [a];
-    }
-    else
-    {
-        var b = date.split("-")
-        var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1)
-        var nor = await module.exports.getnormal(c.getDay())
-        await module.exports.setdate(date,nor)
-        return [nor,c.getDay()];
-    }
-},
 //edit normal days
 editnormal:function (day,activity,value)
 {

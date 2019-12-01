@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <script type="text/javascript"src="/TableWC.js"></script>
+    <script type="text/javascript"src="/ajaxLoad.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
       $(document).ready(()=>{
@@ -31,10 +32,13 @@
     <input id="day" type="text"  value=""> <!-- TODO: replace with <select>-->
     <input id="normal" type="checkbox" value="" >
     <button type="button" name="button" onclick="reloadTable()">confirm</button>
-
     <br>
     <br>
-    <div id="table_container" class="">
+    <div id="table_container" class=""></div>
+    <button type="button" onclick="loadActRemove()">to remove activity</button>
+    <button type="button" onclick="removeDay()">to remove all activities</button>
+    <button type="button" onclick="loadActAdd()">to add/edit an activity</button>
+    <div id="form">
 
     </div>
   </body>

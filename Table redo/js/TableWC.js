@@ -48,7 +48,7 @@ class Table extends HTMLElement{
         a[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          a[i][j]={clr:"ffffff"}
+          a[i][j]={clr:"#ffffff"}
         }
       }
       for(var j in data){
@@ -70,7 +70,7 @@ class Table extends HTMLElement{
           {
             td.innerHTML=collumn.name +"<br/>"+collumn.co;
           }
-          td.style.backgroundColor="#"+ collumn.clr;
+          td.style.backgroundColor=collumn.clr;
           trow.appendChild(td)
         }
         var timeTD=document.createElement("td")
