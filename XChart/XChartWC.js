@@ -16,7 +16,7 @@ class Chart extends HTMLElement {
   }
 
   async connectedCallback() {
-      $.get("/XChart.dat", (data,status)=>{
+    $.get("/XChart.dat", (data,status)=>{
       var values = data.stat_values;
       var names = data.stat_names;
       this.Container.style.width= 55*values.length+"px";
