@@ -25,8 +25,13 @@ class Chart extends HTMLElement {
       {
         var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and rectangle
         c_collumn.className="Chart-Container";
-        c_collumn.style.height="calc("+(values[i]*70/Max)+"% + 35px)"
-
+        if(Max>0)
+        {
+          c_collumn.style.height="calc("+(values[i]*70/Max)+"% + 35px)"
+        }
+        else {
+          c_collumn.style.height="35px"
+        }
         var c_value= document.createElement("div");//number on top of collumn
         c_value.className='Chart-Title';
         c_value.innerText=""+ values[i];
