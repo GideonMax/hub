@@ -1,3 +1,52 @@
+basic description:
+stats_handler is a class meant for handling statistics.
+it stores the data in a folder.
+the data is made out of string:int (text:number) pairs.
+each pair also has an index.
+
 constructor(folder)
-folder is the folder with the data
-if you input a folder that
+this function sets up the handler and pairs it with a data folder.
+input: folder is the folder with the data.
+if you input a folder that doesn't exist, it will be created and initialized with the proper files, no other input is needed.
+
+save()
+no input needed, this function saves the current state of the handler.
+keep in mind, unless you call this function, any change made to the data will NOT be saved
+
+load()
+no inputs needed, this function loads data from the files, it is automatically called in the constructor.
+you probably won't have to use it ever.
+
+add_stat(name)
+this function adds a new stat (string:int pair) to the data.
+input: name is the name of the stat.
+
+in this doc, I will use the term "stat's identifier", an identifier is either the index of a stat or its name.
+
+get(stat)
+this function returns the value of a specific stat.
+input: stat is the identifier for the stat.
+
+set(stat, value)
+this function sets a specific stat's value.
+input: stat is the identifier for the stat.
+       value is the value to set the stat's value to
+
+remove(stat)
+this function removes a stat.
+input: stat is the identifier.
+
+increase(stat, amount)
+this function increases a certain stat's value by a certain amount.
+input: stat is the identifier.
+       amount is the amount.
+
+reset()
+no inputs needed, this function sets all values to 0.
+
+indexOf(stat)
+this function returns a stat's index.
+input: stat is the stat's name.
+
+DebugOutput()
+no inputs needed, this function logs all the data, it should only be used for debug purposes 

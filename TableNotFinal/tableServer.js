@@ -46,7 +46,7 @@ async function actremovedate(date,activity)
     {
         var b = date.split("-")
         var c = new Date(parseInt(b[2]),parseInt(b[1]),parseInt(b[0]),1,1,1,1)
-        var nor = getnormal(day(c.getDay()))
+        var nor = getnormal(c.getDay())
         setdate(date,nor)
     }
     actremovebdate(date,activity)
@@ -58,7 +58,7 @@ async function editdate(date,activity,value)
     {
         var b = date.split("-")
         var c = new Date(parseInt(b[2]),parseInt(b[1]),parseInt(b[0]),1,1,1,1)
-        var nor = getnormal(day(c.getDay()))
+        var nor = getnormal(c.getDay())
         setdate(date,nor)
     }
     editbdate(date,activity,value)

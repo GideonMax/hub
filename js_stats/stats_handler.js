@@ -16,6 +16,7 @@ stats_handler:class {
       fs.writeFileSync(this.ser_f,"[]")
     }
     this.load()
+    this.save()
   }
   save()
   {
@@ -85,6 +86,10 @@ stats_handler:class {
     {
       this.set(i,0)
     }
+  }
+  indexOf(stat)
+  {
+    return this.ser_ar.indexOf(stat)
   }
   DebugOutput()
   {
