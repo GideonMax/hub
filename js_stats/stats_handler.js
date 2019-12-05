@@ -16,6 +16,7 @@ stats_handler:class {
       fs.writeFileSync(this.ser_f,"[]")
     }
     this.load()
+    this.save()
   }
   save()
   {
@@ -98,5 +99,3 @@ stats_handler:class {
     }
   }
 }};
-var a = new module.exports.stats_handler('./statTest')
-console.log(a.indexOf('dr5'));

@@ -1,0 +1,13 @@
+th,td{
+  border: 1px solid black;
+}
+table{
+  border-collapse: collapse;
+}
+td:last-child,th:last-child{
+  border-right: 0px solid white;
+}
+
+th{
+  border-top: 0px solid black;
+}
