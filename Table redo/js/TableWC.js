@@ -23,7 +23,7 @@ class Table extends HTMLElement{
                     <th>האב</th>
                     <th>סדנא</th>
                     <th>בריכה</th>
-                    <th></th>
+                    <th class=""empty></th>
                </tr>
                `
     this.shadow.appendChild(this.table);
@@ -40,7 +40,7 @@ class Table extends HTMLElement{
                     <th>האב</th>
                     <th>סדנא</th>
                     <th>בריכה</th>
-                    <th></th>
+                    <th class="empty"></th>
                </tr>
                `
       var a =new Array(8);
@@ -67,7 +67,7 @@ class Table extends HTMLElement{
           var collumn=row[j]
           var td = document.createElement("td")
           td.className = "card";
-          td.style.borderColor = "transparent"
+          td.style.border = "none";
           if(collumn.hasOwnProperty('name'))
           {
             td.innerHTML=`<h3 class="cardtitle" style="color: ${collumn.clr}">
@@ -76,9 +76,10 @@ class Table extends HTMLElement{
             <h5 class="carddesc">${collumn.co}</h5>`;
           } 
           if(collumn.hasOwnProperty('yes')){
+            td.style.border = "0px solid transparent";
             td.style.borderRightColor = collumn.clr;
             td.style.borderRightWidth = "2px";
-            td.style.backgroundColor = "#f0f0f0";
+            td.style.backgroundColor = "#EEEEEE";
             td.style.textAlign = "Right";
             //td.style.boxShadow = "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)";
           }

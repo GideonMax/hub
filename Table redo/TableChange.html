@@ -9,6 +9,12 @@
     *{
       text-align: right;
     }
+    #currentDay{
+      color:#FE9600;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: -4em;
+      font-weight: normal;
+    }
     #topbar *{
       display: inline-block;
     }
@@ -25,7 +31,7 @@
       color:black;
     }
     #topbar{
-      text-align:center;
+      text-align:right;
       width:100%;
     }
     #topbar div{
@@ -60,6 +66,23 @@
     <script type="text/javascript"src="/ajaxLoad.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
+    function setDayDisplay(day){
+      var display = document.getElementById("currentDay")
+      switch (day){
+        case 1:
+          display.innerText = "יום ראשון"
+        case 2:
+          display.innerText = "יום שני"
+        case 3:
+          display.innerText = "יום שלישי"
+        case 4:
+          display.innerText = "יום רביעי"
+        case 5:
+          display.innerText = "יום חמישי"
+        case 6:
+          display.innerText = "יום שישי"
+      }
+    }
      var currentDay = new Date().getDay();
      currentDay++;
       $(document).ready(()=>{
@@ -87,6 +110,7 @@
         if(day==""){
         day="9"
         }
+        setDayDisplay(day);
         table.setAttribute("day",day)
         var normal = true
         if(normal){
@@ -101,13 +125,11 @@
   <body>
     <div id="topbar">
       <div>
-        <button type="button" onclick="loadActRemove()">Remove activity</button>
-        <button type="button" onclick="removeDay()">Remove all activities</button>
-        <button type="button" onclick="loadActAdd()">Add/edit an activity</button>
+        <button type="button" name="button" onclick="prevDay()"><</button>
+        <input id="day" type="number" hidden value="" disabled> 
+        <button type="button" name="button" onclick="nextDay()">></button>
       </div>
-      <button type="button" name="button" onclick="prevDay()"><</button>
-      <input id="day" type="number" max="6" min="1" value="" disabled> 
-      <button type="button" name="button" onclick="nextDay()">></button>
+        <h1 id="currentDay"></h1>
     </div>
     <br>
     <br>
