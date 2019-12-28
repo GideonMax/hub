@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="script.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <section id="mainwrapper">
+      <main class="homePopup">
+          <header class="teenInfoHeader">
+            <span id="topleft">עריכה</span>
+            <span id="heading" >
+              <% let schoolClass = ''
+               switch (teen['class']) {
+                case '1':
+                  schoolClass = 'ז'
+                  break;
+                case '2':
+                  schoolClass = 'ח'
+                  break;
+                case '3':
+                  schoolClass = 'ט'
+                  break;
+                case '4':
+                  schoolClass = 'י'
+                  break;
+                case '5':
+                  schoolClass = 'י"א'
+                  break;
+                case '6':
+                  schoolClass = 'י"ב'
+                  break;
+              }%>
+              <h1><%= teen['firstName'] %> <%= teen['lastName'] %></h1>
+              <h3><%= teen['school'] %> <%= schoolClass %></h3>
+            </span>
+          </header>
+          <section>
+            <div id="teenInfo">
+              <div><span>טלפון</span><%= teen['mobilePhone'] %></div>
+              <div><span>טלפון הורה</span><%= teen['parentPhone'] %> (<%= teen['parentName'] %>)</div>
+              <div><span>תעודת זהות</span><%= teen['ID'] %></div>
+            </div>
+          </section>
+          <main class="teenInfoMain">
+            <% for (let i = 0; i < Object.keys(items).length; i++) {%>
+              <section class="category" id="<%= Object.keys(items)[i] %>">
+                <h2><%= (Object.keys(items)[i]) %></h2>
+                <% for (let j = 0; j < Object.keys(items[Object.keys(items)[i]]).length; j++){%>
+                  <div style="cursor: pointer;" onclick="useItem('<%= items[Object.keys(items)[i]][(Object.keys(items[Object.keys(items)[i]])[0])]['item'] %>','<%=teen["ID"]%>')">
+                    <% let parm = items[Object.keys(items)[i]]
+                    let itm = Object.keys(items)[i]
+                      if (teen['taked'][itm['item']]) {
+                      %>
+                        <img src="<%= items[Object.keys(items)[i]][(Object.keys(items[Object.keys(items)[i]])[0])]['img'] %>" style="fillter: grayscale(100%);">
+                      <%
+                    } else { %>
+                    <img src="<%= items[Object.keys(items)[i]][(Object.keys(items[Object.keys(items)[i]])[0])]['img'] %>">
+                    <% }%>
+                    <p style="font-size: 0.3em"><%= items[Object.keys(items)[i]][(Object.keys(items[Object.keys(items)[i]])[0])]['item'] %></p>
+                    </div>
+                  <% } %>
+              </section>
+            <%}%>
+          </main>
+      </main>
+    </section>
+<script type="text/javascript">
+  function useItem(ItemName, teenID){
+    $.post("/teenUseItem.post",{item:ItemName,ID:teenID})
+  }
+</script>
+  </body>
+</html>

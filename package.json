@@ -17,14 +17,22 @@
   },
   "homepage": "https://github.com/GideonMax/hub#readme",
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
     "ejs": "^2.7.1",
+    "ejs-lint": "^0.3.0",
     "exceljs": "^1.9.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "firebase": "^7.3.0",
     "firebase-admin": "^8.7.0",
     "fs": "0.0.1-security",
     "nodemailer": "^6.1.1",
+    "path": "^0.12.7",
     "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

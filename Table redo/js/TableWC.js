@@ -13,19 +13,6 @@ class Table extends HTMLElement{
     this.shadow.appendChild(link);
     this.table = document.createElement("table");
 
-      this.table.innerHTML = `
-               <tr>
-                    <th>אולם ראשון</th>
-                    <th>אולם שני</th>
-                    <th>אולם שלישי</th>
-                    <th>מזכירות</th>
-                    <th>פנאי</th>
-                    <th>האב</th>
-                    <th>סדנא</th>
-                    <th>בריכה</th>
-                    <th>זמן/אולם</th>
-               </tr>
-               `
     this.shadow.appendChild(this.table);
   }
   connectedCallback(){
