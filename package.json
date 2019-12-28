@@ -33,6 +33,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^1.19.4"
   }
 }
