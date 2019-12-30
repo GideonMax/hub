@@ -12,7 +12,6 @@ class Table extends HTMLElement{
     link.href="/TableWC.css";
     this.shadow.appendChild(link);
     this.table = document.createElement("table");
-
     this.shadow.appendChild(this.table);
   }
   connectedCallback(){
@@ -27,7 +26,7 @@ class Table extends HTMLElement{
                     <th>האב</th>
                     <th>סדנא</th>
                     <th>בריכה</th>
-                    <th>זמן/אולם</th>
+                    <th class="empty"></th>
                </tr>
                `
       var a =new Array(8);
@@ -35,15 +34,15 @@ class Table extends HTMLElement{
         a[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          a[i][j]={clr:"#ffffff"}
+          a[i][j]={clr:"#000"}
         }
       }
       for(var j in data){
         var i =data[j]
-        a[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={clr:i.clr,co:i.co,name:i.name}
+        a[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={yes:null,clr:i.clr,co:i.co,name:i.name}
         for(var j = Times.indexOf(i.tstart)+1;j<Times.indexOf(i.tend);j++)
         {
-          a[j][pl.indexOf(i.place)]={clr:i.clr}
+          a[j][pl.indexOf(i.place)]={clr:i.clr,yes:null}
         }
       }
       for(var i=0;i<a.length; i++){
@@ -53,11 +52,23 @@ class Table extends HTMLElement{
         {
           var collumn=row[j]
           var td = document.createElement("td")
+          td.className = "card";
+          td.style.border = "none";
           if(collumn.hasOwnProperty('name'))
           {
-            td.innerHTML=collumn.name +"<br/>"+collumn.co;
+            td.innerHTML=`<h3 class="cardtitle" style="color: ${collumn.clr}">
+            <b>${collumn.name}</b>
+            <\h3>
+            <h5 class="carddesc">${collumn.co}</h5>`;
+          } 
+          if(collumn.hasOwnProperty('yes')){
+            td.style.border = "0px solid transparent";
+            td.style.borderRightColor = collumn.clr;
+            td.style.borderRightWidth = "2px";
+            td.style.backgroundColor = "#EEEEEE";
+            td.style.textAlign = "Right";
+            //td.style.boxShadow = "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)";
           }
-          td.style.backgroundColor=collumn.clr;
           trow.appendChild(td)
         }
         var timeTD=document.createElement("td")
