@@ -18,10 +18,10 @@
     #topbar *{
       display: inline-block;
     }
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { 
-      -webkit-appearance: none; 
-      margin: 0; 
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
     #topbar input{
       background:none;
@@ -37,7 +37,7 @@
     #topbar div{
       float:left;
     }
-    button 
+    button
     {
       border: none;
       text-decoration: underline;
@@ -69,22 +69,30 @@
     function setDayDisplay(day){
       var display = document.getElementById("currentDay")
       switch (day){
-        case 1:
+        case 0:
           display.innerText = "יום ראשון"
-        case 2:
+          break
+        case 1:
           display.innerText = "יום שני"
-        case 3:
+          break
+        case 2:
           display.innerText = "יום שלישי"
-        case 4:
+          break
+        case 3:
           display.innerText = "יום רביעי"
-        case 5:
+          break
+        case 4:
           display.innerText = "יום חמישי"
-        case 6:
+          break
+        case 5:
           display.innerText = "יום שישי"
+          break
+        case 6:
+          display.innerText = "יום שבת"
+          break
       }
     }
      var currentDay = new Date().getDay();
-     currentDay++;
       $(document).ready(()=>{
         document.getElementById("day").value = currentDay;
         reloadTable()
@@ -97,7 +105,7 @@
         }
       }
       function prevDay(){
-        if(currentDay > 1){
+        if(currentDay > 0){
           currentDay--;
           document.getElementById("day").value = currentDay;
           reloadTable();
@@ -107,9 +115,6 @@
         $("#table_container").empty()
         var table =document.createElement("time-table")
         var day=currentDay;
-        if(day==""){
-        day="9"
-        }
         setDayDisplay(day);
         table.setAttribute("day",day)
         var normal = true
@@ -126,7 +131,7 @@
     <div id="topbar">
       <div>
         <button type="button" name="button" onclick="prevDay()"><</button>
-        <input id="day" type="number" hidden value="" disabled> 
+        <input id="day" type="number" hidden value="" disabled>
         <button type="button" name="button" onclick="nextDay()">></button>
       </div>
         <h1 id="currentDay"></h1>
