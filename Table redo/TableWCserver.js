@@ -6,7 +6,6 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.get("/:name.js",(req,res)=>{
-  console.log("here");
   res.sendFile(__dirname+"/js/"+req.params.name+".js")
 })
 
