@@ -1,0 +1,59 @@
+
+body{
+    height: 100%;
+}
+*{
+    text-align: right;
+}
+#currentDay{
+    color:#FE9600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: -4em;
+    font-weight: normal;
+}
+#topbar *{
+    display: inline-block;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#topbar input{
+    background:none;
+    border:none;
+    width:10px;
+    text-align: center;
+    color:black;
+}
+#topbar{
+    text-align:right;
+    width:100%;
+}
+#topbar div{
+    float:left;
+}
+button
+{
+    border: none;
+    text-decoration: underline;
+    background: none;
+    color: blue;
+    outline: none;
+}
+button:hover{
+    cursor: pointer;
+}
+.popup{
+    text-align: left;
+    height: 200px;
+    width: 200px;
+    position: fixed;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
+    background-color: white;
+    border:2px black solid;
+    padding:1em;
+}
