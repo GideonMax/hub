@@ -30,7 +30,7 @@ app.post("/remove.post",(req,res)=>{
 })
 app.post("/actAdd.post",(req,res)=>{
  if(req.body.normal==='true'){
-   TableFirebase.editnormal(res.body.day,req.body.data.name,req.body.data)
+   TableFirebase.editnormal(req.body.day,req.body.data.name,req.body.data)
 
  }
  else{
