@@ -60,7 +60,7 @@ class Table extends HTMLElement{
             <b>${collumn.name}</b>
             <\h3>
             <h5 class="carddesc">${collumn.co}</h5>`;
-          } 
+          }
           if(collumn.hasOwnProperty('yes')){
             td.style.border = "0px solid transparent";
             td.style.borderRightColor = collumn.clr;

@@ -6,7 +6,6 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 app.get("/:name.js",(req,res)=>{
-  console.log("here");
   res.sendFile(__dirname+"/js/"+req.params.name+".js")
 })
 
@@ -31,7 +30,7 @@ app.post("/remove.post",(req,res)=>{
 })
 app.post("/actAdd.post",(req,res)=>{
  if(req.body.normal==='true'){
-   TableFirebase.editnormal(res.body.day,req.body.data.name,req.body.data)
+   TableFirebase.editnormal(req.body.day,req.body.data.name,req.body.data)
 
  }
  else{
