@@ -1,5 +1,35 @@
+
 var isNormal = true;
+var currentDay = new Date().getDay();
 var rootDate = null;
+
+$(document).ready(() => {
+    document.getElementById("day").value = currentDay;
+    document.getElementById("datediv").style.visibility = 'hidden';
+    reloadTable()
+})
+
+function switchDateFormat(string) {
+    var date = stringToDate(string);
+    var year = date.getFullYear();
+    var month=""+(date.getMonth() + 1);
+    if(month.length==1){
+        month="0"+month
+    }
+    var day = ""+date.getDate();
+    if(day.length==1){
+        day="0"+day;
+    }
+    return year + "-" + month + "-" + day;
+}
+function dateToString(date) {
+    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+}
+function stringToDate(string) {
+    var split = string.split("-");
+    return new Date(parseInt( split[2]), split[1] - 1,parseInt( split[0]));
+}
+
 function setDayDisplay() {
     var display = document.getElementById("currentDay")
     if (isNormal) {
@@ -40,41 +70,53 @@ function setDayDisplay() {
     }
 }
 
-
-function dateToString(date) {
-    return date.getDate() + "-" + date.getMonth() + 1 + "-" + date.getFullYear();
-}
-function stringToDate(string) {
-    var split = string.split("-");
-    return new Date(split[2], split[1] - 1, split[0]);
+function setRootDate() {
+    rootDate = switchDateFormat(document.getElementById("rootDate").value);
+    currentDay=0;
+    setDayDisplay()
+    reloadTable()
 }
 function switchType() {
     isNormal = !isNormal;
-    document.getElementById("tableType").innerText = (isNormal ? "מערכת בלי שינויים" : "מערכת עם שינויים");
-    currentDay = (isNormal ? new Date().getDay() : 0)
+    if(isNormal){
+        document.getElementById("tableType").innerText ="מערכת בלי שינויים";
+        currentDay =new Date().getDay();
+        document.getElementById("datediv").style.visibility ='hidden';
+    }
+    else{
+        document.getElementById("tableType").innerText ="מערכת עם שינויים";
+        currentDay =0;
+        document.getElementById("datediv").style.visibility ='visible';
+        var date = ((rootDate==null)? new Date():stringToDate(rootDate));
+        date = new Date(date.getTime() + currentDay * 1000 * 60 * 60 * 24);
+        console.log(dateToString(date))
+        document.getElementById("rootDate").setAttribute("value",switchDateFormat(dateToString(date)));
+    }
     setDayDisplay()
     reloadTable()
 }
 
-var currentDay = new Date().getDay();
-$(document).ready(() => {
-    document.getElementById("day").value = currentDay;
-    reloadTable()
-})
+
 function nextDay() {
-    if(!(isNormal && currentDay>=6)){
+    if (!(isNormal && currentDay >= 6)) {
         currentDay++;
         document.getElementById("day").value = currentDay;
         reloadTable();
         setDayDisplay();
     }
+    if(! isNormal){
+        document.getElementById("rootDate").stepUp(1)
+    }
 }
 function prevDay() {
-    if(!(isNormal && currentDay<=0)){
+    if (!(isNormal && currentDay <= 0)) {
         currentDay--;
         document.getElementById("day").value = currentDay;
         reloadTable();
         setDayDisplay();
+    }
+    if(! isNormal){
+        document.getElementById("rootDate").stepDown(1)
     }
 }
 function reloadTable() {
