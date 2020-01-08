@@ -57,7 +57,9 @@ app.post("/table.dat",async (req,res)=>{
   }
   else
   {
-    var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
+    var root= req.body.root.split("-");
+    var rootDate= new Date(root[2],root[1]-1,root[0]);
+    var date= new Date(rootDate.getTime()+ (parseInt(req.body.day)*1000*60*60*24) );
     var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
     var ret= await TableFirebase.getdate(datestring);
   }

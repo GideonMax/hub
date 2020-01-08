@@ -2,7 +2,7 @@ const pl = new Array( '1olam','2olam','3olam','maz','pnay','hub','sadna','pool')
 const Times =['1700','1730','1800','1830','1900','1930','2000','2030','2100'];
 class Table extends HTMLElement{
   static get observedAttributes(){
-    return ['day','normal'];
+    return ['day','normal','root'];
   }
   constructor(){
     super()
@@ -14,8 +14,30 @@ class Table extends HTMLElement{
     this.table = document.createElement("table");
     this.shadow.appendChild(this.table);
   }
+  makeDataRequestData(){
+    if(this.hasAttribute("normal")){
+      return {
+        day: this.getAttribute("day"),
+        normal: 'true'
+      };
+    }
+    let root="";
+    if(this.hasAttribute("root")){
+      root=this.getAttribute("root");
+    }
+    else{
+      var date = new Date();
+      root= date.getDate()+"-"+date.getMonth()+1+"-"+date.getFullYear();
+    }
+    return{
+      day: this.getAttribute("day"),
+      root:root,
+      normal:'false'
+    };
+  }
+
   connectedCallback(){
-    $.post("/table.dat",{ day: this.getAttribute('day'), normal: this.hasAttribute('normal')  },(data,status)=>{
+    $.post("/table.dat",this.makeDataRequestData(),(data,status)=>{
       this.table.innerHTML = `
                <tr>
                     <th>אולם ראשון</th>
@@ -79,6 +101,7 @@ class Table extends HTMLElement{
       }
     })
   }
+
 }
 
 window.customElements.define('time-table', Table);
