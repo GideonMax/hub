@@ -37,6 +37,8 @@ class Table extends HTMLElement{
   }
 
   connectedCallback(){
+    let request = this.makeDataRequestData()
+    console.log(request);
     $.post("/table.dat",this.makeDataRequestData(),(data,status)=>{
       this.table.innerHTML = `
                <tr>
