@@ -4,13 +4,12 @@ var currentDay = new Date().getDay();
 var rootDate = null;
 
 $(document).ready(() => {
-    document.getElementById("day").value = currentDay;
     document.getElementById("datediv").style.visibility = 'hidden';
     reloadTable()
 })
 
-function switchDateFormat(string) {
-    var date = stringToDate(string);
+function DateFormatToWire(datestr) {
+    var date = stringToDate(datestr);
     var year = date.getFullYear();
     var month=""+(date.getMonth() + 1);
     if(month.length==1){
@@ -21,6 +20,10 @@ function switchDateFormat(string) {
         day="0"+day;
     }
     return year + "-" + month + "-" + day;
+}
+function DateFormatFromWire(date){
+    var split = date.split("-");
+    return parseInt(split[2])+"-"+parseInt(split[1])+"-"+split[0];
 }
 function dateToString(date) {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
@@ -71,7 +74,7 @@ function setDayDisplay() {
 }
 
 function setRootDate() {
-    rootDate = switchDateFormat(document.getElementById("rootDate").value);
+    rootDate = DateFormatFromWire(document.getElementById("rootDate").value);
     currentDay=0;
     setDayDisplay()
     reloadTable()
@@ -89,8 +92,7 @@ function switchType() {
         document.getElementById("datediv").style.visibility ='visible';
         var date = ((rootDate==null)? new Date():stringToDate(rootDate));
         date = new Date(date.getTime() + currentDay * 1000 * 60 * 60 * 24);
-        console.log(dateToString(date))
-        document.getElementById("rootDate").setAttribute("value",switchDateFormat(dateToString(date)));
+        document.getElementById("rootDate").setAttribute("value",DateFormatToWire(dateToString(date)));
     }
     setDayDisplay()
     reloadTable()
@@ -100,7 +102,6 @@ function switchType() {
 function nextDay() {
     if (!(isNormal && currentDay >= 6)) {
         currentDay++;
-        document.getElementById("day").value = currentDay;
         reloadTable();
         setDayDisplay();
     }
@@ -111,7 +112,6 @@ function nextDay() {
 function prevDay() {
     if (!(isNormal && currentDay <= 0)) {
         currentDay--;
-        document.getElementById("day").value = currentDay;
         reloadTable();
         setDayDisplay();
     }
