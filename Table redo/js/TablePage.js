@@ -2,12 +2,15 @@
 var isNormal = true;
 var currentDay = new Date().getDay();
 var rootDate = null;
-
 $(document).ready(() => {
     document.getElementById("datediv").style.visibility = 'hidden';
     reloadTable()
 })
-
+/**
+ * 
+ * @param {string} datestr date in format DD-MM-YYYY, redundant zeros excluded, this is the format our programs use
+ * @returns {string} date in format YYYY-MM-DD, includes redundant zeros, this is the format HTML uses
+ */
 function DateFormatToWire(datestr) {
     var date = stringToDate(datestr);
     var year = date.getFullYear();
@@ -21,18 +24,35 @@ function DateFormatToWire(datestr) {
     }
     return year + "-" + month + "-" + day;
 }
+/**
+ * 
+ * @param {string} date date in format YYYY-MM-DD, includes redundant zeros, this is the format HTML uses
+ * @returns {string} date in format DD-MM-YYYY, redundant zeros excluded, this is the format our programs use
+ */
 function DateFormatFromWire(date){
     var split = date.split("-");
     return parseInt(split[2])+"-"+parseInt(split[1])+"-"+split[0];
 }
+/**
+ * 
+ * @param {Date} date a standard Date object
+ * @returns {string} a date in format DD-MM-YYYY
+ */
 function dateToString(date) {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 }
-function stringToDate(string) {
-    var split = string.split("-");
+/**
+ * 
+ * @param {string} datestr a date in format DD-MM-YYYY
+ * @returns {Date} a standard Date object
+ */
+function stringToDate(datestr) {
+    var split = datestr.split("-");
     return new Date(parseInt( split[2]), split[1] - 1,parseInt( split[0]));
 }
-
+/**
+ * updates the display
+ */
 function setDayDisplay() {
     var display = document.getElementById("currentDay")
     if (isNormal) {
