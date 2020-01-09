@@ -2,7 +2,11 @@
 var isNormal = true;
 var currentDay = new Date().getDay();
 var rootDate = null;
-
+var test = ["1-9-2020","29-1-1918","4-12-2031"]
+for(var i =0;i<test.length;i++){
+    console.log(test[i]);
+    console.log(DateFormatToWire(test[i]));
+}
 $(document).ready(() => {
     document.getElementById("datediv").style.visibility = 'hidden';
     reloadTable()
