@@ -7,8 +7,8 @@ let ejs = require('ejs')
 const drinks =  require('../js_stats/stats_handler.js');
 app.use(bodyPraser.urlencoded({ extended: true }));
 
-app.get("/XChart.dat",function(req,res){
-  var handler = new drinks.stats_handler('../js_stats/statTest')
+app.post("/XChart.dat",function(req,res){
+  var handler = new drinks.stats_handler('../data/'+req.body.folder)
   res.send({stat_values:handler.stats_ar ,stat_names: handler.ser_ar} )
 })
 app.get("/XChartWC.js",function(req,res){

@@ -1,6 +1,6 @@
 class Chart extends HTMLElement {
   static get observedAttributes(){
-    return ['color']
+    return ['color','folder']
   }
 
   constructor () {
@@ -16,7 +16,7 @@ class Chart extends HTMLElement {
   }
 
   connectedCallback() {
-    $.get("/XChart.dat", (data,status)=>{
+    $.post("/XChart.dat",{folder:this.getAttribute("folder")} ,(data,status)=>{
       var values = data.stat_values;
       var names = data.stat_names;
       this.Container.style.width= 55*values.length+"px";

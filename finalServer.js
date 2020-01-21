@@ -18,9 +18,9 @@ app.get("/:name.html", (req, res) => {
     res.sendFile(__dirname + "/html/" + req.params.name + ".html");
 })
 
-app.get("/XChart.dat", function (req, res) {
-    var handler = new drinks.stats_handler('./requires/js_stats/statTest');
-    res.send({ stat_values: handler.stats_ar, stat_names: handler.ser_ar });
+app.post("/XChart.dat", function (req, res) {
+    var handler = new drinks.stats_handler('./data/' + req.body.folder)
+    res.send({ stat_values: handler.stats_ar, stat_names: handler.ser_ar })
 })
 
 app.get("/:name.js", (req, res) => {
