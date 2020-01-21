@@ -5,6 +5,14 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 const drinks = require('./requires/js_stats/stats_handler.js');
+var viewEngine = require("./requires/textReplaceEngine.js")
+
+app.engine('rpl',viewEngine);
+app.set('view-engine','rpl');
+
+app.get("/test",(req,res)=>{
+    res.render(__dirname+"/test.rpl");
+})
 
 app.get("/:name.wc", (req, res) => {
     res.sendFile(__dirname + "/WebComponents/" + req.params.name + ".js")
