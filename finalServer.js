@@ -5,9 +5,10 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 const drinks = require('./requires/js_stats/stats_handler.js');
-var viewEngine = require("./requires/textReplaceEngine.js")
+var viewEngine =  require("./requires/textReplaceEngine.js").asyncReplaceEngine;
 
-app.engine('rpl',viewEngine);
+app.engine('rpl',new viewEngine(null).replace);
+var test = new viewEngine((str)=>{return str});
 app.set('view-engine','rpl');
 
 app.get("/test",(req,res)=>{
@@ -43,4 +44,4 @@ app.get("/*", (req, res) => {
     res.status(404)
 })
 
-app.listen(3000)
+app.listen(80)
