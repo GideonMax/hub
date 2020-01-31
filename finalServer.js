@@ -13,8 +13,8 @@ app.engine('ejs',ejs.renderFile)
 app.set('view-engine','ejs');
 app.set('view-engine','rpl');
 
-app.get("/test",(req,res)=>{
-    res.render(__dirname+"/test.rpl");
+app.get("/ElementArrayTest.dat",(req,res)=>{
+    res.send([{text:"test1"},{text:"test2"}])
 })
 
 app.get("/:name.wc", (req, res) => {
