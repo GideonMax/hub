@@ -1,3 +1,12 @@
+
+/**
+ * @observedAttributes {
+ *  @member {function(x : number)} click runs on click, x is the element's index
+ *  @member {HTMLElement} type a string representing the type of elements in the array
+ *  @member {string} action the url to make a get request to on click
+ *  }
+ * @observedAttributes
+ */
 class ElementArray extends HTMLElement{
     static get observedAttributes(){
         return ['click','type','action','dataURL','cssFile'];
