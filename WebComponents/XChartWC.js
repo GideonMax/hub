@@ -44,7 +44,6 @@ class Chart extends HTMLElement {
         {
           if(this.hasAttribute('color'))
           {
-            console.log(this.getAttribute('color'));
             c_rectangle.style.backgroundColor=this.getAttribute('color')
           }
           else
@@ -64,6 +63,8 @@ class Chart extends HTMLElement {
   }
 }
 window.customElements.define('x-chart', Chart);
+
+
 /////PULL BARMEN FROM DATA BASE
 /*
 $(document).ready( ()=>{

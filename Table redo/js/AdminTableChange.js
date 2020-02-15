@@ -1,6 +1,4 @@
 function load(name){
-    console.log(name);
-    console.log(document.getElementById("form"));
     
     document.getElementById("form").setAttribute("file",name);
 }

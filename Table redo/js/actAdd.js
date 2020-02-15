@@ -1,5 +1,4 @@
 function add(){
-  console.log("yes");
   var name = $("#name").val();
   var co = $("#co").val();
   var start_time= $("#start_time").val();

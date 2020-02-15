@@ -1,13 +1,10 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-  console.log("a");
   $(document).ready(()=>{
-    console.log(Times)
     for(var k in Times){
       var i = Times[k]
       var text=i.slice(0,2)+":"+i.slice(2)
       var option = "<option value=\""+i+"\">"+text+"</option>"
-      console.log(option)
       $("#start_time").append(option)
       $("#end_time").append(option)
     }

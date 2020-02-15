@@ -10,11 +10,11 @@ input: folder is the folder with the data.
 if you input a folder that doesn't exist, it will be created and initialized with the proper files, no other input is needed.
 
 save()
-no input needed, this function saves the current state of the handler.
+this function saves the current state of the handler.
 keep in mind, unless you call this function, any change made to the data will NOT be saved
 
 load()
-no inputs needed, this function loads data from the files, it is automatically called in the constructor.
+this function loads data from the files, it is automatically called in the constructor.
 you probably won't have to use it ever.
 
 add_stat(name)
@@ -41,12 +41,16 @@ this function increases a certain stat's value by a certain amount.
 input: stat is the identifier.
        amount is the amount.
 
+
+all_stat_names
+this property is an array of all the stats' names
+
 reset()
-no inputs needed, this function sets all values to 0.
+this function sets all values to 0.
 
 indexOf(stat)
 this function returns a stat's index.
 input: stat is the stat's name.
 
 DebugOutput()
-no inputs needed, this function logs all the data, it should only be used for debug purposes 
+this function logs all the data, it should only be used for debug purposes 

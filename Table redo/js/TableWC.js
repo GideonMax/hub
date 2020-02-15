@@ -27,7 +27,6 @@ class Table extends HTMLElement{
     }
     else{
       var date = new Date();
-      console.log(date);
       root= date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
     }
     return{
@@ -38,8 +37,7 @@ class Table extends HTMLElement{
   }
 
   connectedCallback(){
-    let request = this.makeDataRequestData()
-    console.log(request);
+    let request = this.makeDataRequestData();
     $.post("/table.dat",this.makeDataRequestData(),(data,status)=>{
       this.table.innerHTML = `
                <tr>

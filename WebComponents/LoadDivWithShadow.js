@@ -1,4 +1,4 @@
-class loaded extends HTMLElement {
+class loadedShadow extends HTMLElement {
   static get observedAttributes() {
     return ['file']
   }
@@ -13,4 +13,4 @@ class loaded extends HTMLElement {
   }
 
 }
-window.customElements.define("loaded-div",loaded)
+window.customElements.define("shadow-loaded-div",loadedShadow)
