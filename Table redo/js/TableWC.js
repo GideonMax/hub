@@ -27,7 +27,8 @@ class Table extends HTMLElement{
     }
     else{
       var date = new Date();
-      root= date.getDate()+"-"+date.getMonth()+1+"-"+date.getFullYear();
+      console.log(date);
+      root= date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
     }
     return{
       day: this.getAttribute("day"),

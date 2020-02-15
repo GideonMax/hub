@@ -3,9 +3,12 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/TablePage.css">
+    <link rel="stylesheet" href="/AdminTableChange.css">
     <script type="text/javascript"src="/TableWC.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/TablePage.js"></script>
+    <script type="text/javascript" src="/AdminTableChange.js"></script>
+    <script type="text/javascript" src="/LoadDiv.js"></script>
     <title></title>
   </head>
   <body>
@@ -26,8 +29,10 @@
     <br>
     <br>
     <div id="table_container"></div>
-    <div id="form">
-
+    <button onclick="loadActRemove()">להסיר פעילות</button>
+    <button onclick="loadActAdd()">להוסיף פעילות</button>
+    <button onclick="removeDay()">להסיר את כל הפעילויות היום</button>
+    <loaded-div id="form"></loaded-div>
     </div>
   </body>
 </html>
