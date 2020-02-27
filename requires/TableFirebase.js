@@ -55,9 +55,6 @@ removenormal:function (date)
 actremovenormal:async function (date,activity)
 {
     normal.child(date).child(activity).remove();
-    if(await module.exports.getbdate(date)==null){
-      normal.child(date).set({});
-    }
 },
 actremovedate:async function (date,activity)
 {

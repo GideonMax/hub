@@ -1,50 +1,47 @@
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).ready(()=>{
-    console.log(Times)
     for(var k in Times){
       var i = Times[k]
       var text=i.slice(0,2)+":"+i.slice(2)
       var option = "<option value=\""+i+"\">"+text+"</option>"
-      console.log(option)
       $("#start_time").append(option)
       $("#end_time").append(option)
     }
   })
 </script>
-<script type="text/javascript" src="/actAdd.js">
-</script>
-<div class="popup">
-<label for="name">activity name:</label>
+<script type="text/javascript" src="/actAdd.js"></script>
+<div class="popup" dir="rtl">
+<label for="name">שם הפעילות:</label>
 <input type="text" id="name" value="">
 <br>
-<label for="co">coach</label>
+<label for="co">מדריך:</label>
 <input type="text" id="co">
 <br>
-<label for="start_time">start time:</label>
+<label for="start_time">זמן התחלה:</label>
 <select id="start_time">
 
 </select>
 <br>
-<label for="end_time">end time:</label>
+<label for="end_time">זמן סיום:</label>
 <select id="end_time">
 
 </select>
 <br>
-<label for="clr">color:</label>
+<label for="clr">צבע:</label>
 <input type="color" value="#ffff00" id="clr">
 <br>
-<label for="place">place:</label>
+<label for="place">מקום:</label>
 <select id="place">
-  <option value="1olam">hall 1</option>
-  <option value="2olam">hall 2</option>
-  <option value="3olam">hall 3</option>
-  <option value="maz">maz?</option>
-  <option value="pnay">leisure corner?</option>
-  <option value="hub">hub?</option>
-  <option value="sadna">workshop</option>
-  <option value="pool">pool</option>
+  <option value="1olam">אולם ראשון</option>
+  <option value="2olam">אולם שני</option>
+  <option value="3olam">אולם שלישי</option>
+  <option value="maz">מזכירות</option>
+  <option value="pnay">פנאי</option>
+  <option value="hub">האב</option>
+  <option value="sadna">סדנא</option>
+  <option value="pool">חדר בריכה</option>
 </select>
 <br>
-<button type="button" onclick="add()" name="button">add</button>
+<button type="button" onclick="add()" name="button">הוסף</button>
 </div>

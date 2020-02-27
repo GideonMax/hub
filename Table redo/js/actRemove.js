@@ -4,6 +4,6 @@ function remove(){
   var day = table.getAttribute("day")
   var normal = table.hasAttribute("normal")
   $.post("/actRemove.post",{name:name,day:day,normal:normal},(data,status)=>{
-    
+    location.reload();
   })
 }

@@ -3,10 +3,10 @@ let fs= require('fs')
 var app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
-module.exports ={
-stats_handler:class {
+class stats_handler{
   constructor(folder)
   {
+    this.folder=folder;
     this.stats_f=folder+"/stats.txt"
     this.ser_f=folder+"/serialization.txt"
     if(! fs.existsSync(folder))
@@ -42,41 +42,66 @@ stats_handler:class {
     this.stats_ar =a
     this.ser_ar= JSON.parse( fs.readFileSync(this.ser_f).toString())
   }
+  /**
+   * 
+   * @param {String} name 
+   */
   add_stat(name)
   {
     this.ser_ar.push(name)
     this.stats_ar.push(0)
   }
+  /**
+   * 
+   * @param {number|String} stat 
+   */
   get(stat)
   {
     if(typeof stat == 'string')
     {
-      stat=this.ser_ar.indexOf(stat)
+      stat=this.indexOf(stat);
     }
-    return this.stats_ar[stat]
+    return this.stats_ar[stat];
   }
+  /**
+   * 
+   * @param {number|String} stat
+   * @param {number} value 
+   */
   set(stat,value)
   {
     if(typeof stat == 'string')
     {
-      stat=this.ser_ar.indexOf(stat)
+      stat=this.indexOf(stat)
     }
     this.stats_ar[stat]=value
   }
+  get all_stat_names(){
+    return this.ser_ar;
+  }
+  /**
+   * 
+   * @param {number|String} stat 
+   */
   remove(stat)
   {
     if(typeof stat == 'string')
     {
-      stat=this.ser_ar.indexOf(stat)
+      stat=this.indexOf(stat)
     }
     this.ser_ar.splice(stat,1)
     this.stats_ar.splice(stat,1)
   }
+  /**
+   * 
+   * @param {number|String} stat 
+   * @param {number} amount 
+   */
   increase(stat,amount)
   {
     if(typeof stat == 'string')
     {
-      stat=this.ser_ar.indexOf(stat)
+      stat=this.indexOf(stat)
     }
     this.stats_ar[stat]+=amount
   }
@@ -87,15 +112,30 @@ stats_handler:class {
       this.set(i,0)
     }
   }
+  /**
+   * 
+   * @param {String} stat 
+   */
   indexOf(stat)
   {
     return this.ser_ar.indexOf(stat)
   }
   DebugOutput()
   {
-    for(let i =0;i<this.stats_ar.length;i++)
+    var ret ="{\n";
+    var length=this.stats_ar.length;
+    for(let i =0;i<length-1;i++)
     {
-      console.log(this.ser_ar[i]+": "+this.stats_ar[i]);
+      ret+=this.ser_ar[i]+": "+this.stats_ar[i]+",\n";
     }
+    ret+=this.ser_ar[length-1]+": "+this.stats_ar[length-1]+",\n";
+    ret+="}";
+    return ret;
   }
-}};
+  delete_folder(){
+    fs.rmdir(this.folder,{recursive:true},(err)=>{
+
+    })
+  }
+}
+module.exports=stats_handler;

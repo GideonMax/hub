@@ -5,8 +5,14 @@ var TableFirebase= require("../requires/TableFirebase.js");
 const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
+
+
 app.get("/:name.js",(req,res)=>{
   res.sendFile(__dirname+"/js/"+req.params.name+".js")
+})
+
+app.get("/:name.html", (req, res) => {
+  res.sendFile(__dirname + "/" + req.params.name + ".html");
 })
 
 app.get("/:name.css",(req,res)=>{

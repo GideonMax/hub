@@ -21,6 +21,6 @@ function add(){
     place:place
     }
   },(data,status)=>{
-
+  location.reload();
   })
 }

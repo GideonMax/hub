@@ -4,12 +4,14 @@ class loaded extends HTMLElement {
   }
   constructor() {
     super();
-    this.shadow = this.attachShadow({ mode: 'open' });
-    this.container = document.createElement("div");
-    this.shadow.appendChild(this.container)
   }
   attributeChangedCallback(name, oldvalue, newvalue) {
     $(this.container).load(newvalue)
+  }
+  
+  connectedCallback(){
+    this.container = document.createElement("div");
+    this.appendChild(this.container)
   }
 
 }
