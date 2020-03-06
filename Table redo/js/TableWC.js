@@ -1,8 +1,8 @@
-const pl = new Array( '1olam','2olam','3olam','maz','pnay','hub','sadna','pool');
+const pl = ['pool','sadna','hub','pnay','maz','3olam','2olam','1olam',];
 const Times =['1700','1730','1800','1830','1900','1930','2000','2030','2100'];
 class Table extends HTMLElement{
   static get observedAttributes(){
-    return ['day','normal','root'];
+    return ['size','width','height','day','normal','root'];
   }
   constructor(){
     super()
@@ -37,19 +37,26 @@ class Table extends HTMLElement{
   }
 
   connectedCallback(){
-    let request = this.makeDataRequestData();
+    
+    var size = this.getAttribute('size');
+    this.table.style.fontSize=size;
+    var width = this.getAttribute('width');
+    var height = this.getAttribute('height');
+    this.table.style.width=width;
+    this.table.style.height=height;
+
     $.post("/table.dat",this.makeDataRequestData(),(data,status)=>{
       this.table.innerHTML = `
                <tr>
-                    <th>אולם ראשון</th>
-                    <th>אולם שני</th>
-                    <th>אולם שלישי</th>
-                    <th>מזכירות</th>
-                    <th>פנאי</th>
-                    <th>האב</th>
-                    <th>סדנא</th>
-                    <th>בריכה</th>
                     <th class="empty"></th>
+                    <th>בריכה</th>
+                    <th>סדנא</th>
+                    <th>האב</th>
+                    <th>פנאי</th>
+                    <th>מזכירות</th>
+                    <th>אולם שלישי</th>
+                    <th>אולם שני</th>
+                    <th>אולם ראשון</th>
                </tr>
                `
       var a =new Array(8);
@@ -71,6 +78,11 @@ class Table extends HTMLElement{
       for(var i=0;i<a.length; i++){
         var row=a[i];
         var trow = document.createElement("tr")
+        
+        var timeTD=document.createElement("td")
+        var time =Times[a.indexOf(row)]
+        timeTD.innerText= time.slice(0,2)+":"+time.slice(2)
+        trow.appendChild(timeTD)
         for(var j =0;j<row.length;j++)
         {
           var collumn=row[j]
@@ -94,10 +106,6 @@ class Table extends HTMLElement{
           }
           trow.appendChild(td)
         }
-        var timeTD=document.createElement("td")
-        var time =Times[a.indexOf(row)]
-        timeTD.innerText= time.slice(0,2)+":"+time.slice(2)
-        trow.appendChild(timeTD)
         this.table.appendChild(trow)
       }
     })

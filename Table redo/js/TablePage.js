@@ -1,4 +1,4 @@
-
+var tableSize = 100;
 var isNormal = true;
 var currentDay = new Date().getDay();
 var rootDate = null;
@@ -140,15 +140,18 @@ function prevDay() {
     }
 }
 function reloadTable() {
-    $("#table_container").empty()
-    var table = document.createElement("time-table")
-    table.setAttribute("day", currentDay)
+    $("#table_container").empty();
+    var table = document.createElement("time-table");
+    table.setAttribute('height',(tableSize*0.9)+"%");
+    table.setAttribute('width',tableSize+"%");
+    table.setAttribute('size',(3.25*tableSize/100)+"vh");
+    table.setAttribute("day", currentDay);
     if (rootDate != null) {
-        table.setAttribute("root", rootDate)
+        table.setAttribute("root", rootDate);
     }
     if (isNormal) {
-        table.setAttribute("normal", null)
+        table.setAttribute("normal", null);
     }
     setDayDisplay();
-    document.getElementById("table_container").appendChild(table)
+    document.getElementById("table_container").appendChild(table);
 }

@@ -6,7 +6,9 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 
-
+app.get("/admin",(req,res)=>{
+  res.sendFile(__dirname+"/AdminTableChange.html");
+})
 app.get("/:name.js",(req,res)=>{
   res.sendFile(__dirname+"/js/"+req.params.name+".js")
 })

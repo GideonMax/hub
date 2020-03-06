@@ -16,3 +16,4 @@ function removeDay()
     location.reload();
   })
 }
+tableSize=70;

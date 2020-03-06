@@ -17,9 +17,6 @@ body, html, table{
 }
 table{
   border-collapse: collapse;
-  width:100%;
-  height:90%;
-  font-size: 200%;
 }
 .empty{
   border:none;
