@@ -1,3 +1,5 @@
+//This file, by decree of Master Max Merling, has been purged from JQuery and requires no further libraries, yay for 0 dependencies
+
 class loadedShadow extends HTMLElement {
   static get observedAttributes() {
     return ['file']
@@ -9,7 +11,11 @@ class loadedShadow extends HTMLElement {
     this.shadow.appendChild(this.container)
   }
   attributeChangedCallback(name, oldvalue, newvalue) {
-    $(this.container).load(newvalue)
+    fetch(newvalue)
+    .then(res=>res.text())
+    .then(text=>{
+      this.container.innerHTML=newValue;
+    });
   }
 
 }

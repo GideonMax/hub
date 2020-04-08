@@ -15,9 +15,7 @@ app.engine('ejs',ejs.renderFile);
 app.set('view-engine','ejs');
 app.set('view-engine','rpl');
 
-app.get("/ElementArrayTest.dat",(req,res)=>{
-    res.send([{text:"test1"},{text:"test2"}]);
-})
+
 app.get("/:name.wc", (req, res) => {
     res.sendFile(__dirname + "/WebComponents/" + req.params.name + ".js");
 })
@@ -30,11 +28,6 @@ app.get("/:name.html", (req, res) => {
     res.sendFile(__dirname + "/html/" + req.params.name + ".html");
 })
 
-app.post("/XChart.dat", function (req, res) {
-    var handler = new stats_handler('./data/' + req.body.folder);
-    res.send({ stat_values: handler.stats_ar, stat_names: handler.ser_ar });
-})
-
 app.get("/:name.js", (req, res) => {
     res.sendFile(__dirname + "/js/" + req.params.name + ".js");
 })
@@ -43,10 +36,20 @@ app.get("/:name.load", (req, res) => {
     res.sendFile(__dirname + "/load/" + req.params.name + ".html");
 })
 
+
+app.post("/XChart.dat", function (req, res) {
+    var handler = new stats_handler('./data/' + req.body.folder);
+    res.send({ stat_values: handler.stats_ar, stat_names: handler.ser_ar });
+})
+app.get("/ElementArrayTest.dat",(req,res)=>{
+    res.send([{text:"test1"},{text:"test2"}]);
+})
+
+app.use("/stats",stat_router)
+
 app.get("/*", (req, res) => {
     res.status(404);
 })
 
-app.use("/stats",stat_router)
 
 app.listen(80);

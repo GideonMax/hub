@@ -1,10 +1,10 @@
+//this object has been clensed from any dependencies like JQuery by our greatest plague doctor, Gideon Max Merling.
 
 /**
- * @observedAttributes {
+ * @observedAttributes
  *  @member {function(x : number)} click runs on click, x is the element's index
  *  @member {HTMLElement} type a string representing the type of elements in the array
  *  @member {string} action the url to make a get request to on click
- *  }
  * @observedAttributes
  */
 class ElementArray extends HTMLElement{
@@ -26,7 +26,9 @@ class ElementArray extends HTMLElement{
     }
     connectedCallback(){
         var type=this.getAttribute("type")||"div";
-        $.get(this.getAttribute("dataURL"),(data,status)=>{
+        fetch(this.getAttribute("dataURL"))
+        .then(res=>res.json())
+        .then(data=>{
             for(var i=0;i<data.length;i++){
                 var element= document.createElement(type);
                 element.innerText=data[i].text;
@@ -52,7 +54,7 @@ class ElementArray extends HTMLElement{
                 })(element,i);
                 this.container.appendChild(element);
             }
-        })
+        });
     }
 
 }

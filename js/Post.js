@@ -1,7 +1,8 @@
 /**
  * 
- * @param {String} Url 
- * @param {Object} data 
+ * @param {String} Url
+ * @param {Object} data
+ * @returns {Promise<Response>}
  */
 function Post(Url, Data) {
     return fetch(Url, {

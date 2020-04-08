@@ -53,7 +53,8 @@ class stats_handler{
   }
   /**
    * 
-   * @param {number|String} stat 
+   * @param {number|String} stat
+   * @returns {number}
    */
   get(stat)
   {
