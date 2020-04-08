@@ -5,14 +5,16 @@ class loaded extends HTMLElement {
   constructor() {
     super();
   }
-  attributeChangedCallback(name, oldvalue, newvalue) {
-    $(this.container).load(newvalue)
-  }
-  
+
   connectedCallback(){
     this.container = document.createElement("div");
     this.appendChild(this.container)
   }
 
+  attributeChangedCallback(name, oldvalue, newvalue) {
+    fetch(newvalue)
+    .then(res=>res.text())
+    .then(text=>this.container.appendChild(text));
+  }
 }
 window.customElements.define("loaded-div",loaded)

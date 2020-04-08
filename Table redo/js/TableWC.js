@@ -44,8 +44,9 @@ class Table extends HTMLElement{
     var height = this.getAttribute('height');
     this.table.style.width=width;
     this.table.style.height=height;
-
-    $.post("/table.dat",this.makeDataRequestData(),(data,status)=>{
+    Post("/table.dat",this.makeDataRequestData())
+    .then(res=>res.json())
+    .then(data=>{
       this.table.innerHTML = `
                <tr>
                     <th class="empty"></th>
@@ -108,6 +109,7 @@ class Table extends HTMLElement{
         }
         this.table.appendChild(trow)
       }
+
     })
   }
 

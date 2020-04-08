@@ -1,16 +1,6 @@
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(()=>{
-    for(var k in Times){
-      var i = Times[k]
-      var text=i.slice(0,2)+":"+i.slice(2)
-      var option = "<option value=\""+i+"\">"+text+"</option>"
-      $("#start_time").append(option)
-      $("#end_time").append(option)
-    }
-  })
-</script>
+<script type="text/javascript" src="/Post.js"></script>
 <script type="text/javascript" src="/actAdd.js"></script>
+
 <div class="popup" dir="rtl">
 <label for="name">שם הפעילות:</label>
 <input type="text" id="name" value="">

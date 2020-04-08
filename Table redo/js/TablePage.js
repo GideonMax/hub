@@ -2,7 +2,7 @@ var tableSize = 100;
 var isNormal = true;
 var currentDay = new Date().getDay();
 var rootDate = null;
-$(document).ready(() => {
+document.addEventListener("readystatechange", (event)=>{
     document.getElementById("datediv").style.visibility = 'hidden';
     reloadTable()
 })
@@ -140,7 +140,7 @@ function prevDay() {
     }
 }
 function reloadTable() {
-    $("#table_container").empty();
+    document.getElementById("table_container").innerHTML="";
     var table = document.createElement("time-table");
     table.setAttribute('height',(tableSize*0.9)+"%");
     table.setAttribute('width',tableSize+"%");

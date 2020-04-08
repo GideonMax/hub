@@ -12,8 +12,7 @@ function loadActAdd(){
 function removeDay()
 {
   var table=document.querySelector("#table_container time-table");
-  $.post("/remove.post",{ day: table.getAttribute('day'), normal: table.hasAttribute('normal')  }, (data,status)=>{
-    location.reload();
-  })
+  Post("/remove.post",{ day: table.getAttribute('day'), normal: table.hasAttribute('normal')  })
+  .then(res=>location.reload());
 }
 tableSize=70;

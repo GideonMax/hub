@@ -1,4 +1,5 @@
 //this object has been clensed from any dependencies like JQuery by our greatest plague doctor, Gideon Max Merling.
+//p.s. it does require the Post.js file so keep that in mind
 
 /**
  * @observedAttributes
@@ -48,7 +49,7 @@ class ElementArray extends HTMLElement{
                     }}
                     else if(this.hasAttribute("action")){
                         elem.onclick=()=>{
-                            $.post(this.getAttribute("action"),{index:index})
+                            Post(this.getAttribute("action"),{index:index})
                         }
                     }
                 })(element,i);
