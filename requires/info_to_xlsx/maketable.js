@@ -3,11 +3,16 @@ let xl = require("exceljs")
 let fs = require("fs")
 
 
-
+/**
+ * takes an object and turns it into an excel file, example at bottom of page, result in test.xlsx file
+ * @param {any} obj an object representing a table of data 
+ * @param {string} file the file path to create and write to
+ * @param {string[]} optional_headers a row of headers to put at the top of the file
+ */
 function object_to_xlsx(obj,file,optional_headers=false) {
   let workbook = new xl.Workbook()
   let sheet = workbook.addWorksheet("main")
-  console.log(Object.keys(obj));
+  //console.log(Object.keys(obj));
   if(optional_headers!=false)
   {
     for (var i=0;i< optional_headers.length ;i++) {
@@ -26,7 +31,14 @@ function object_to_xlsx(obj,file,optional_headers=false) {
   workbook.xlsx.writeFile(file)
   return
 }
-
+/**
+ * sends a file through mail, example at bottom of page
+ * @param {String} filep the file's path INCLUDING the file's name
+ * @param {*} filen the file's name, this is the name the person the mail is being sent to will see, it does not matter
+ * @param {*} sendto the mail to send the file to
+ * @param {*} mail the sender's mail, use 'merkaz.noar.mail@gmail.com'
+ * @param {*} password the sender's password, use 'hubpassword1029384756'
+ */
 async function mailfile(filep,filen,sendto,mail,password) {
   let dd ={
     service: 'gmail.com',
@@ -67,12 +79,21 @@ async function mailfile(filep,filen,sendto,mail,password) {
 })}
 
 
+function xlsxExample(){
+  var k =
+  {
+    person_a:['guy','a school','10', '75648','true','true','sushi'],
+    yes:['a','schoooool','3','not a phone number, you have been bamboozled','true','false', 'CAT']
+  };
+  var headers =['name','school','class','parent\'s phone','warm','cold','weird question'];
+  object_to_xlsx(k,'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx',headers)
 
-var k =
-{
-  headers:['name','school','class','parent\'s phone','warm','cold','weird question'],
-  person_a:['guy','a school','10', '75648','true','true','sushi'],
-  yes:['a','schoooool','3','not a phone number, you have been bumboozled','true','false', 'CAT']
 }
-//object_to_xlsx(k,'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx')
-mailfile('C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx','test.xlsx','gideon.max.merling@gmail.com','merkaz.noar.mail@gmail.com','hubpassword1029384756')
+function mailExample(){
+  mailfile(
+    'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx',
+    'test.xlsx',
+    'gideon.max.merling@gmail.com',
+    'merkaz.noar.mail@gmail.com',
+    'hubpassword1029384756');
+}
