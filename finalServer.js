@@ -5,15 +5,15 @@ const bodyPraser = require('body-parser');
 app.use(bodyPraser.json());
 app.use(bodyPraser.urlencoded({ extended: true }));
 const stats_handler = require('./requires/js_stats/stats_handler.js');
-var viewEngine =  require("./requires/textReplaceEngine.js").asyncReplaceEngine;
+//var viewEngine =  require("./requires/textReplaceEngine.js").asyncReplaceEngine;
 var ejs = require("ejs");
 var stat_router=require("./requires/js_stats/stat_handler_router.js");
 
 
-app.engine('rpl',new viewEngine(null).replace);
+//app.engine('rpl',new viewEngine(null).replace);
 app.engine('ejs',ejs.renderFile);
 app.set('view-engine','ejs');
-app.set('view-engine','rpl');
+//app.set('view-engine','rpl');
 
 
 app.get("/:name.wc", (req, res) => {
