@@ -4,6 +4,10 @@ var app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 class stats_handler{
+  /**
+   * creates a new stat handler attached to a certain folder and loads the folder or initializes it if it does not exist
+   * @param {String} folder the folder which will hold the stats 
+   */
   constructor(folder)
   {
     this.folder=folder;
@@ -18,6 +22,9 @@ class stats_handler{
     this.load()
     this.save()
   }
+  /**
+   * saves the data on the handler to the folder.
+   */
   save()
   {
     var a =[]
@@ -29,6 +36,9 @@ class stats_handler{
     fs.writeFileSync(this.stats_f,text)
     fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar))
   }
+  /**
+   * loads the data from the folder
+   */
   load()
   {
     var file_text = fs.readFileSync(this.stats_f).toString()
@@ -43,7 +53,7 @@ class stats_handler{
     this.ser_ar= JSON.parse( fs.readFileSync(this.ser_f).toString())
   }
   /**
-   * 
+   * adds a new stat
    * @param {String} name 
    */
   add_stat(name)
@@ -52,7 +62,7 @@ class stats_handler{
     this.stats_ar.push(0)
   }
   /**
-   * 
+   * gets a stat's value
    * @param {number|String} stat
    * @returns {number}
    */
@@ -65,7 +75,7 @@ class stats_handler{
     return this.stats_ar[stat];
   }
   /**
-   * 
+   * sets a stat's value
    * @param {number|String} stat
    * @param {number} value 
    */
