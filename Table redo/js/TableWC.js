@@ -14,7 +14,7 @@ class Table extends HTMLElement{
     this.table = document.createElement("table");
     this.shadow.appendChild(this.table);
   }
-  makeDataRequestData(){
+  makeDateRequestData(){
     if(this.hasAttribute("normal")){
       return {
         day: this.getAttribute("day"),
@@ -44,7 +44,7 @@ class Table extends HTMLElement{
     var height = this.getAttribute('height');
     this.table.style.width=width;
     this.table.style.height=height;
-    Post("/table.dat",this.makeDataRequestData())
+    Post("/table.dat",this.makeDateRequestData())
     .then(res=>res.json())
     .then(data=>{
       this.table.innerHTML = `
@@ -65,15 +65,15 @@ class Table extends HTMLElement{
         a[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          a[i][j]={clr:"#000"}
+          a[i][j]={clr:"#000",border=false}
         }
       }
-      for(var j in data){
-        var i =data[j]
-        a[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={yes:null,clr:i.clr,co:i.co,name:i.name}
+      for(var k in data){
+        var i =data[k]
+        a[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name}
         for(var j = Times.indexOf(i.tstart)+1;j<Times.indexOf(i.tend);j++)
         {
-          a[j][pl.indexOf(i.place)]={clr:i.clr,yes:null}
+          a[j][pl.indexOf(i.place)]={clr:i.clr,border:true}
         }
       }
       for(var i=0;i<a.length; i++){
@@ -97,7 +97,7 @@ class Table extends HTMLElement{
             <\h3>
             <h5 class="carddesc">${collumn.co}</h5>`;
           }
-          if(collumn.hasOwnProperty('yes')){
+          if(collumn.border){
             td.style.border = "0px solid transparent";
             td.style.borderRightColor = collumn.clr;
             td.style.borderRightWidth = "2px";
