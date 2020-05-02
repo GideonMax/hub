@@ -25,32 +25,19 @@ class stats_handler{
   /**
    * saves the data on the handler to the folder.
    */
-  save()
-  {
-    var a =[]
-    for(var i =0;i<this.stats_ar.length;i++)
-    {
-      a.push("" + this.stats_ar[i])
-    }
-    var text = a.join('\n')
-    fs.writeFileSync(this.stats_f,text)
+  save(){
+    var typedArray=new Uint32Array(this.stats_ar);
+    fs.writeFileSync(this.stats_f,typedArray);
     fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar))
   }
-  /**
-   * loads the data from the folder
-   */
-  load()
-  {
-    var file_text = fs.readFileSync(this.stats_f).toString()
-    var str_arr = file_text.split("\n")
-    if(str_arr[str_arr.length-1] =="")str_arr.pop()
-    var a =[]
-    for(var i =0; i<str_arr.length; i++)
-    {
-      a.push( parseInt(  str_arr[i]))
+  load(){
+    var buffer=fs.readFileSync(this.stats_f);
+    var a=[];
+    for(var i=0;i<buffer.length;i+=4){
+      a.push(buffer.readUInt32LE(i));
     }
-    this.stats_ar =a
-    this.ser_ar= JSON.parse( fs.readFileSync(this.ser_f).toString())
+    this.stats_ar=a;
+    this.ser_ar= JSON.parse( fs.readFileSync(this.ser_f).toString());
   }
   /**
    * adds a new stat
