@@ -65,15 +65,15 @@ class Table extends HTMLElement{
         tableMatrix[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          tableMatrix[i][j]={clr:"#000",border:false}//set all the table's cells to blank by default
+          tableMatrix[i][j]={clr:"#000",border:false};//set all the table's cells to blank by default
         }
       }
       for(var k in data){
-        var i =data[k]//i is the description of an activity from the database
-        tableMatrix[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name}
+        var i =data[k];//i is the description of an activity from the database
+        tableMatrix[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name};
         for(var j = Times.indexOf(i.tstart)+1;j<Times.indexOf(i.tend);j++)
         {
-          tableMatrix[j][pl.indexOf(i.place)]={clr:i.clr,border:true}
+          tableMatrix[j][pl.indexOf(i.place)]={clr:i.clr,border:true};
         }
       }
       /*
@@ -86,16 +86,16 @@ class Table extends HTMLElement{
       */
       for(var i=0;i<tableMatrix.length; i++){
         var row=tableMatrix[i];
-        var trow = document.createElement("tr")
+        var trow = document.createElement("tr");
         
-        var timeTD=document.createElement("td")
-        var time =Times[tableMatrix.indexOf(row)]
-        timeTD.innerText= time.slice(0,2)+":"+time.slice(2)
-        trow.appendChild(timeTD)
+        var timeTD=document.createElement("td");
+        var time =Times[tableMatrix.indexOf(row)];
+        timeTD.innerText= time.slice(0,2)+":"+time.slice(2);
+        trow.appendChild(timeTD);
         for(var j =0;j<row.length;j++)
         {
-          var collumn=row[j]
-          var td = document.createElement("td")
+          var collumn=row[j];
+          var td = document.createElement("td");
           td.className = "card";
           td.style.border = "none";
           if(collumn.hasOwnProperty('name'))
