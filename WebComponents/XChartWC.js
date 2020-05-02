@@ -27,7 +27,7 @@ class Chart extends HTMLElement {
       var Max = values.reduce(function(a,b){return Math.max(a,b)});
       for(var i =0; i<values.length;i++)
       {
-        var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and rectangle
+        var c_collumn = document.createElement("div");//c_collumn contains the collumn's name, value and bar
         c_collumn.className="Chart-Container";
         if(Max>0)
         {
@@ -41,7 +41,7 @@ class Chart extends HTMLElement {
         c_value.innerText=""+ values[i];
         c_collumn.appendChild(c_value);
 
-        var c_rectangle =document.createElement("div");//collumn's rectangle
+        var c_rectangle =document.createElement("div");//collumn's bar
         c_rectangle.className= 'Chart';
         c_rectangle.style.height= "87%";
         if(values[i]==Max)

@@ -86,14 +86,14 @@ function xlsxExample(){
     yes:['a','schoooool','3','not a phone number, you have been bamboozled','true','false', 'CAT']
   };
   var headers =['name','school','class','parent\'s phone','warm','cold','weird question'];
-  object_to_xlsx(k,'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx',headers)
+  object_to_xlsx(k,'./requires/info_to_xlsx/test.xlsx',headers)
 
 }
-function mailExample(){
+function mailExample(MailToSendTo){
   mailfile(
     'C:/Users/Gidi/Documents/GitHub/hub/info_to_xlsx/test.xlsx',
     'test.xlsx',
-    'gideon.max.merling@gmail.com',
+    MailToSendTo,
     'merkaz.noar.mail@gmail.com',
     'hubpassword1029384756');
 }
