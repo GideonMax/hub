@@ -65,11 +65,11 @@ class Table extends HTMLElement{
         tableMatrix[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          tableMatrix[i][j]={clr:"#000",border:false}
+          tableMatrix[i][j]={clr:"#000",border:false}//set all the table's cells to blank by default
         }
       }
       for(var k in data){
-        var i =data[k]
+        var i =data[k]//i is the description of an activity from the database
         tableMatrix[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name}
         for(var j = Times.indexOf(i.tstart)+1;j<Times.indexOf(i.tend);j++)
         {
