@@ -60,28 +60,36 @@ class Table extends HTMLElement{
                     <th>אולם ראשון</th>
                </tr>
                `
-      var a =new Array(8);
-      for (var i = 0; i < a.length; i++) {
-        a[i]= new Array(8);
+      var tableMatrix =new Array(8);
+      for (var i = 0; i < tableMatrix.length; i++) {
+        tableMatrix[i]= new Array(8);
         for(var j = 0; j < 8; j++)
         {
-          a[i][j]={clr:"#000",border=false}
+          tableMatrix[i][j]={clr:"#000",border:false}
         }
       }
       for(var k in data){
         var i =data[k]
-        a[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name}
+        tableMatrix[Times.indexOf(i.tstart)][pl.indexOf(i.place)]={border:true,clr:i.clr,co:i.co,name:i.name}
         for(var j = Times.indexOf(i.tstart)+1;j<Times.indexOf(i.tend);j++)
         {
-          a[j][pl.indexOf(i.place)]={clr:i.clr,border:true}
+          tableMatrix[j][pl.indexOf(i.place)]={clr:i.clr,border:true}
         }
       }
-      for(var i=0;i<a.length; i++){
-        var row=a[i];
+      /*
+      At this point tableMatrix is an Object[][] describing the contents of the table
+      the cells' properties are:
+      clr: color
+      border: should the cell have a border on the right side
+      co: the activity's coach
+      name: the name of the activity
+      */
+      for(var i=0;i<tableMatrix.length; i++){
+        var row=tableMatrix[i];
         var trow = document.createElement("tr")
         
         var timeTD=document.createElement("td")
-        var time =Times[a.indexOf(row)]
+        var time =Times[tableMatrix.indexOf(row)]
         timeTD.innerText= time.slice(0,2)+":"+time.slice(2)
         trow.appendChild(timeTD)
         for(var j =0;j<row.length;j++)
