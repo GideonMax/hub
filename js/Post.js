@@ -13,3 +13,4 @@ function Post(Url, Data) {
         body: JSON.stringify(Data)
     });
 }
+export {Post};

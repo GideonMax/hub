@@ -1,5 +1,5 @@
 /// I, Gideon Max Merling The Third, declare this file to be JQuery free, ahooooooooooooooooo
-
+import {Post} from '/Post.js';
 class Chart extends HTMLElement {
   static get observedAttributes(){
     return ['color','folder']

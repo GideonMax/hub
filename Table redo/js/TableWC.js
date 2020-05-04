@@ -1,3 +1,4 @@
+import {Post}from './Post.js';
 const pl = ['pool','sadna','hub','pnay','maz','3olam','2olam','1olam',];
 const Times =['1700','1730','1800','1830','1900','1930','2000','2030','2100'];
 class Table extends HTMLElement{

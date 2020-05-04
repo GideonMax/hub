@@ -1,5 +1,5 @@
+import {Post}from './Post.js';
 function load(name){
-    
     document.getElementById("form").setAttribute("file",name);
 }
 function loadActRemove(){

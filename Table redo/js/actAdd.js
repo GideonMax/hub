@@ -1,3 +1,4 @@
+import {Post}from './Post.js';
 document.addEventListener("readystatechange", (event)=>{
   for(var k in Times){
     var i = Times[k]

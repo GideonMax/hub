@@ -1,3 +1,4 @@
+import {Post}from './Post.js';
 function remove(){
   var name = document.querySelector("#name").value;
   var table=document.querySelector("#table_container time-table");
