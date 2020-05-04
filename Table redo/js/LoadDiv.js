@@ -1,6 +1,6 @@
 class loaded extends HTMLElement {
   static get observedAttributes() {
-    return ['file']
+    return ['file'];
   }
   constructor() {
     super();
@@ -8,13 +8,13 @@ class loaded extends HTMLElement {
 
   connectedCallback(){
     this.container = document.createElement("div");
-    this.appendChild(this.container)
+    this.appendChild(this.container);
   }
 
   attributeChangedCallback(name, oldvalue, newvalue) {
     fetch(newvalue)
-    .then(res=>res.text())
-    .then(text=>this.container.appendChild(text));
+      .then(res=>res.text())
+      .then(text=>this.container.appendChild(text));
   }
 }
-window.customElements.define("loaded-div",loaded)
+window.customElements.define("loaded-div",loaded);

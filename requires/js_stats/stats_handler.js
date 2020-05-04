@@ -1,8 +1,8 @@
-let express = require('express')
-let fs= require('fs')
-var app = express()
-var bodyParser = require('body-parser')
-app.use(bodyParser.json())
+let express = require('express');
+let fs= require('fs');
+var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 class stats_handler{
   /**
    * creates a new stat handler attached to a certain folder and loads the folder or initializes it if it does not exist
@@ -11,16 +11,16 @@ class stats_handler{
   constructor(folder)
   {
     this.folder=folder;
-    this.stats_f=folder+"/stats.txt"
-    this.ser_f=folder+"/serialization.txt"
+    this.stats_f=folder+"/stats.txt";
+    this.ser_f=folder+"/serialization.txt";
     if(! fs.existsSync(folder))
     {
-      fs.mkdirSync(folder)
-      fs.writeFileSync(this.stats_f,"")
-      fs.writeFileSync(this.ser_f,"[]")
+      fs.mkdirSync(folder);
+      fs.writeFileSync(this.stats_f,"");
+      fs.writeFileSync(this.ser_f,"[]");
     }
-    this.load()
-    this.save()
+    this.load();
+    this.save();
   }
   /**
    * saves the data on the handler to the folder.
@@ -28,7 +28,7 @@ class stats_handler{
   save(){
     var typedArray=new Uint32Array(this.stats_ar);
     fs.writeFileSync(this.stats_f,typedArray);
-    fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar))
+    fs.writeFileSync(this.ser_f, JSON.stringify(this.ser_ar));
   }
   load(){
     var buffer=fs.readFileSync(this.stats_f);
@@ -45,8 +45,8 @@ class stats_handler{
    */
   add_stat(name)
   {
-    this.ser_ar.push(name)
-    this.stats_ar.push(0)
+    this.ser_ar.push(name);
+    this.stats_ar.push(0);
   }
   /**
    * gets a stat's value
@@ -70,9 +70,9 @@ class stats_handler{
   {
     if(typeof stat == 'string')
     {
-      stat=this.indexOf(stat)
+      stat=this.indexOf(stat);
     }
-    this.stats_ar[stat]=value
+    this.stats_ar[stat]=value;
   }
   get all_stat_names(){
     return this.ser_ar;
@@ -85,10 +85,10 @@ class stats_handler{
   {
     if(typeof stat == 'string')
     {
-      stat=this.indexOf(stat)
+      stat=this.indexOf(stat);
     }
-    this.ser_ar.splice(stat,1)
-    this.stats_ar.splice(stat,1)
+    this.ser_ar.splice(stat,1);
+    this.stats_ar.splice(stat,1);
   }
   /**
    * 
@@ -99,15 +99,15 @@ class stats_handler{
   {
     if(typeof stat == 'string')
     {
-      stat=this.indexOf(stat)
+      stat=this.indexOf(stat);
     }
-    this.stats_ar[stat]+=amount
+    this.stats_ar[stat]+=amount;
   }
   reset()
   {
     for(var i = 0;i<this.stats_ar.length;i++)
     {
-      this.set(i,0)
+      this.set(i,0);
     }
   }
   /**
@@ -116,7 +116,7 @@ class stats_handler{
    */
   indexOf(stat)
   {
-    return this.ser_ar.indexOf(stat)
+    return this.ser_ar.indexOf(stat);
   }
   DebugOutput()
   {
@@ -132,8 +132,8 @@ class stats_handler{
   }
   delete_folder(){
     fs.rmdir(this.folder,{recursive:true},(err)=>{
-
-    })
+      if(err)return err;
+    });
   }
 }
 module.exports=stats_handler;

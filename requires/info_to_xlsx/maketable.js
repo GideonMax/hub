@@ -1,6 +1,7 @@
-let nodemailer = require("nodemailer")
-let xl = require("exceljs")
-let fs = require("fs")
+/* eslint-disable no-unused-vars */
+let nodemailer = require("nodemailer");
+let xl = require("exceljs");
+//let fs = require("fs");
 
 
 /**
@@ -10,26 +11,26 @@ let fs = require("fs")
  * @param {string[]} optional_headers a row of headers to put at the top of the file
  */
 function object_to_xlsx(obj,file,optional_headers=false) {
-  let workbook = new xl.Workbook()
-  let sheet = workbook.addWorksheet("main")
+  let workbook = new xl.Workbook();
+  let sheet = workbook.addWorksheet("main");
   //console.log(Object.keys(obj));
   if(optional_headers!=false)
   {
     for (var i=0;i< optional_headers.length ;i++) {
-      row.push( optional_headers[i])
+      row.push( optional_headers[i]);
     }
   }
   for (var d=0;d< Object.keys(obj).length;d++ ) {
-    var key = Object.keys(obj)[d]
-    var row = []
-    console.log(key)
+    var key = Object.keys(obj)[d];
+    var row = [];
+    console.log(key);
     for (var i=0;i< obj[key].length ;i++) {
-      row.push( obj[key][i])
+      row.push( obj[key][i]);
     }
-    sheet.addRow(row)
+    sheet.addRow(row);
   }
-  workbook.xlsx.writeFile(file)
-  return
+  workbook.xlsx.writeFile(file);
+  return;
 }
 /**
  * sends a file through mail, example at bottom of page
@@ -47,14 +48,14 @@ async function mailfile(filep,filen,sendto,mail,password) {
       pass: password
     },
     tls: {
-        rejectUnauthorized: false
+      rejectUnauthorized: false
     }
-  }
+  };
   console.log(dd);
-  let tr= nodemailer.createTransport(dd)
+  let tr= nodemailer.createTransport(dd);
   console.log("tr: \n"+tr);
-  let today = new Date()
-  let title = "" + today.getDate() +"/" + (today.getMonth()+1) + "/" + today.getFullYear() +""
+  let today = new Date();
+  let title = "" + today.getDate() +"/" + (today.getMonth()+1) + "/" + today.getFullYear() +"";
   let message=
   {
     from: '"hub" <' + mail +'>',
@@ -68,15 +69,15 @@ async function mailfile(filep,filen,sendto,mail,password) {
         path:filep
       }
     ]
-  }
+  };
   console.log("message: "+message);
-  let ad = await tr.sendMail(message, function(error, info){
-  if (error) {
-    console.log("error: \n"+error + "\n" + info)
-  } else {
-    console.log('Email sent: ' + info.response)
-  }
-})}
+  tr.sendMail(message, function(error, info){
+    if (error) {
+      console.log("error: \n"+error + "\n" + info);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });}
 
 
 function xlsxExample(){
@@ -86,7 +87,7 @@ function xlsxExample(){
     yes:['a','schoooool','3','not a phone number, you have been bamboozled','true','false', 'CAT']
   };
   var headers =['name','school','class','parent\'s phone','warm','cold','weird question'];
-  object_to_xlsx(k,'./requires/info_to_xlsx/test.xlsx',headers)
+  object_to_xlsx(k,'./requires/info_to_xlsx/test.xlsx',headers);
 
 }
 function mailExample(MailToSendTo){
