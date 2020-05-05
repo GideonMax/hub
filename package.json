@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/GideonMax/hub#readme",
   "dependencies": {
+    "@firebase/app": "^0.6.2",
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
@@ -27,7 +28,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "firebase": "^7.14.2",
-    "firebase-admin": "^8.7.0",
+    "firebase-admin": "^8.11.0",
     "fs": "0.0.1-security",
     "kind-of": ">=6.0.3",
     "minimist": "^1.2.5",
