@@ -1,46 +1,80 @@
-function CreateCategory(name){
-    $.post("/stats/directory/new",{dir:name});
+
+import {Post} from "./Post";
+class Stats{
+  /**
+    * adds a new category
+    * @param {String} name name of category
+    */
+  createCategory(name){
+    Post("/stats/directory/new",{dir:name});
+  }
+  /**
+     * adds a new stat
+     * @param {String} category category name
+     * @param {String} name stat name
+     */
+  addStat(category,name){
+    Post("/stats/stat/new",{dir:category,name:name});
+  }
+  /**
+     * gets a stat's value
+     * @param {String} category category name
+     * @param {String} namestat name
+     * @returns {Promise<Number>} promise that resolves to the stat's value
+     */
+  getStat(category,name){
+    return Post("/stats/stat/get",{dir:category,name:name})
+      .then(res=>res.json())
+      .then(data=>data.value);
+  }
+  /**
+     * sets a stat's value
+     * @param {String} category category name
+     * @param {String} name stat name
+     * @param {Number} value stat's value
+     */
+  setStat(category,name,value){
+    Post("/stats/stat/set",{dir:category,name:name,value:value});
+  }
+  /**
+     * removes a stat
+     * @param {String} category 
+     * @param {string} name 
+     */
+  removeStat(category,name){
+    Post("/stats/stat/remove",{dir:category,name:name});
+  }
+  /**
+     * increases a stat's value by a specified amount
+     * @param {String} category category name
+     * @param {String} name stat name
+     * @param {Number} amount the amount to increase by
+     */
+  increaseStat(category,name,amount){
+    Post("/stats/stat/increase",{dir:category,name:name,value:amount});
+  }
+  /**
+     * sets all stat values in a category to 0
+     * @param {String} name category name
+     */
+  resetCategory(name){
+    Post("/stats/directory/reset",{dir:name});
+  }
+  /**
+     * deletes a category, this action is irreversible 
+     * @param {String} name category name
+     */
+  removeCategory(name){
+    Post("/stats/directory/remove",{dir:name});
+  }
+  /**
+     * returns all stat names in a category
+     * @param {String} category category name
+     * @returns {Promise<String[]>} all the stat names in that category
+     */
+  getAllStatNames(category){
+    return Post("/stats/directory/allNames",{dir:category})
+      .then(res=>res.json());
+  }
 }
-function addStat(category,name){
-    $.post("/stats/stat/new",{dir:category,name:name});
-}
-/**
- * 
- * @param {String} category 
- * @param {String} name
- * @returns {Promise<Number>}
- */
-function getStat(category,name){
-    return new Promise((resolve,reject)=>{
-        $.post("/stats/stat/get",{dir:category,name:name},(data,status)=>{
-            resolve(data.value);
-        });
-    })
-}
-function setStat(category,name,value){
-    $.post("/stats/stat/set",{dir:category,name:name,value:value});
-}
-function removeStat(category,name){
-    $.post("/stats/stat/remove",{dir:category,name:name});
-}
-function increaseStat(category,name,value){
-    $.post("/stats/stat/increase",{dir:category,name:name,value:value});
-}
-function resetCategory(name){
-    $.post("/stats/directory/reset",{dir:name});
-}
-function removeCategory(name){
-    $.post("/stats/directory/remove",{dir:name});
-}
-/**
- * 
- * @param {String} category
- * @returns {Promise<String[]>} 
- */
-function getAllStatNames(category){
-    return new Promise((resolve,reject)=>{
-        $.post("/stats/directory/allNames",{dir:category},(data,status)=>{
-            resolve(data);
-        });
-    });
-}
+export {Stats};

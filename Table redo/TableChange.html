@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="rtl">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/TablePage.css">
-    <script type="text/javascript"src="/TableWC.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="module" src="/TableWC.js"></script>
     <script type="text/javascript" src="/TablePage.js"></script>
     <title></title>
   </head>
   <body>
     <div id="topbar">
       <div>
-        <button type="button" name="button" onclick="prevDay()"><</button>
+        <button type="button" name="button" onclick="prevDay()"><img src="/back.svg"> </button>
         <input id="day" type="number" hidden value="" disabled>
-        <button type="button" name="button" onclick="nextDay()">></button>
+        <button type="button" name="button" onclick="nextDay()"><img src="/next.svg"></button>
       </div>
       <div id="tableType" onclick="switchType()">
         מערכת בלי שינויים
