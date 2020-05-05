@@ -31,41 +31,42 @@ app.get("/:name.load",(req,res)=>{
 
 app.post("/remove.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.removenormal(req.body.day);
+    TableFirebase.removeNormal(req.body.day);
   }
   else{
     var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
     var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.removedate(datestring);
+    TableFirebase.removeDate(datestring);
   }
   res.send("success");
 });
 app.post("/actAdd.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.editnormal(req.body.day,req.body.data.name,req.body.data);
+    TableFirebase.editNormal(req.body.day,req.body.data.name,req.body.data);
 
   }
   else{
     var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
     var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.editdate(datestring,req.body.data.name,req.body.data);
+    TableFirebase.editDate(datestring,req.body.data.name,req.body.data);
   }
   res.send("success");
 });
 app.post("/actRemove.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.actremovenormal(req.body.day,req.body.name);
+    TableFirebase.activityRemoveNormal(req.body.day,req.body.name);
   }else{
     var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
     var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.actremovedate(datestring,req.body.name);
+    TableFirebase.activityRemoveDate(datestring,req.body.name);
   }
   res.send("success");
 });
 
-app.post("/table.dat",async (req,res)=>{
+app.post("/table.dat",(req,res)=>{
+  var ret;
   if(req.body.normal==='true') {
-    var ret= await TableFirebase.getnormal( req.body.day );
+    ret= TableFirebase.getNormal( req.body.day );
   }
   else
   {
@@ -73,9 +74,9 @@ app.post("/table.dat",async (req,res)=>{
     var rootDate= new Date(root[2],root[1]-1,root[0]);
     var date= new Date(rootDate.getTime()+ (parseInt(req.body.day)*1000*60*60*24) );
     var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    var ret= await TableFirebase.getdate(datestring);
+    ret= TableFirebase.getDate(datestring);
   }
-  res.send(ret);
+  ret.then(data=>res.json(data));
 });
 
 app.get("/*",(req,res)=>{
