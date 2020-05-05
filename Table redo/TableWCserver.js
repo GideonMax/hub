@@ -21,6 +21,10 @@ app.get("/:name.css",(req,res)=>{
   res.sendFile(__dirname+"/css/"+req.params.name+".css");
 });
 
+app.get("/:name.svg",(req,res)=>{
+  res.sendFile(__dirname+"/svg/"+req.params.name+".svg");
+});
+
 app.get("/:name.load",(req,res)=>{
   res.sendFile(__dirname+"/ajaxLoadForms/"+req.params.name+".html");
 });

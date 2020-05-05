@@ -20,6 +20,10 @@ app.get("/:name.wc", (req, res) => {
   res.sendFile(__dirname + "/WebComponents/" + req.params.name + ".js");
 });
 
+app.get("/:name.svg",(req,res)=>{
+  res.sendFile(__dirname+"/svg/"+req.params.name+".svg");
+});
+
 app.get("/:name.css", (req, res) => {
   res.sendFile(__dirname + "/css/" + req.params.name + ".css");
 });
