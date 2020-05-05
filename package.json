@@ -29,6 +29,7 @@
     "firebase": "^7.3.0",
     "firebase-admin": "^8.7.0",
     "fs": "0.0.1-security",
+    "kind-of": ">=6.0.3",
     "minimist": "^1.2.5",
     "nodemailer": "^6.1.1",
     "path": "^0.12.7",
