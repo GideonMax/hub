@@ -14,7 +14,7 @@ class loaded extends HTMLElement {
   attributeChangedCallback(name, oldvalue, newvalue) {
     fetch(newvalue)
       .then(res=>res.text())
-      .then(text=>this.container.appendChild(text));
+      .then(text=>this.container.innerHTML=text);
   }
 }
 window.customElements.define("loaded-div",loaded);
