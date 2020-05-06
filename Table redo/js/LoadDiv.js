@@ -1,20 +1,32 @@
 class loaded extends HTMLElement {
   static get observedAttributes() {
-    return ['file'];
+    return ['file', 'withScript'];
   }
   constructor() {
     super();
   }
 
-  connectedCallback(){
+  connectedCallback() {
     this.container = document.createElement("div");
     this.appendChild(this.container);
   }
-
+  clear() {
+    this.container.innerHTML = "";
+  }
   attributeChangedCallback(name, oldvalue, newvalue) {
-    fetch(newvalue)
-      .then(res=>res.text())
-      .then(text=>this.container.innerHTML=text);
+    if (name != 'file') return;
+    this.clear();
+
+    fetch(newvalue + ".load")
+      .then(res => res.text())
+      .then(text => {
+        this.container.innerHTML += text;
+        if (this.getAttribute('withScript') == 'true') {
+          import(newvalue + ".js").then(ns => {
+            if (ns.onLoad != undefined) ns.onLoad();
+          });
+        }
+      });
   }
 }
-window.customElements.define("loaded-div",loaded);
+window.customElements.define("loaded-div", loaded);
