@@ -31,53 +31,60 @@ app.get("/:name.load",(req,res)=>{
 
 app.post("/remove.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.removenormal(req.body.day);
+    TableFirebase.removeNormal(req.body.day);
   }
   else{
-    var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
-    var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.removedate(datestring);
+    var datestring = getRequestDate(req);
+    TableFirebase.removeDate(datestring);
   }
   res.send("success");
 });
 app.post("/actAdd.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.editnormal(req.body.day,req.body.data.name,req.body.data);
+    TableFirebase.editNormal(req.body.day,req.body.data.name,req.body.data);
 
   }
   else{
-    var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
-    var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.editdate(datestring,req.body.data.name,req.body.data);
+    var datestring = getRequestDate(req);
+    TableFirebase.editDate(datestring,req.body.data.name,req.body.data);
   }
   res.send("success");
 });
 app.post("/actRemove.post",(req,res)=>{
   if(req.body.normal==='true'){
-    TableFirebase.actremovenormal(req.body.day,req.body.name);
+    TableFirebase.activityRemoveNormal(req.body.day,req.body.name);
   }else{
-    var date= new Date(Date.now()+ (parseInt(req.body.day)*1000*60*60*24) );
-    var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    TableFirebase.actremovedate(datestring,req.body.name);
+    var datestring = getRequestDate(req);
+    TableFirebase.activityRemoveDate(datestring,req.body.name);
   }
   res.send("success");
 });
 
-app.post("/table.dat",async (req,res)=>{
+app.post("/table.dat",(req,res)=>{
+  var ret;
   if(req.body.normal==='true') {
-    var ret= await TableFirebase.getnormal( req.body.day );
+    ret= TableFirebase.getNormal( req.body.day );
   }
   else
   {
-    var root= req.body.root.split("-");
-    var rootDate= new Date(root[2],root[1]-1,root[0]);
-    var date= new Date(rootDate.getTime()+ (parseInt(req.body.day)*1000*60*60*24) );
-    var datestring = date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
-    var ret= await TableFirebase.getdate(datestring);
+    var datestring = getRequestDate(req);
+    ret= TableFirebase.getDate(datestring);
   }
-  res.send(ret);
+  ret.then(data=>res.json(data));
 });
+function getRequestDate(req){
+  var rootDate= stringToDate(req.body.root);
+  var date= new Date(rootDate.getTime()+ (parseInt(req.body.day)*1000*60*60*24) );
+  return dateToString(date);
 
+}
+function stringToDate(str){
+  var root= str.split("-");
+  return new Date(root[2],root[1]-1,root[0]);
+}
+function dateToString(date){
+  return date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+}
 app.get("/*",(req,res)=>{
   res.sendFile(__dirname+"/TableChange.html");
 });

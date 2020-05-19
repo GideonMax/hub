@@ -14,102 +14,153 @@ var ref = db.ref('/');
 var normal = ref.child("normal");
 var special = ref.child("special");
 module.exports ={
-  getdate:async function (date)
+  /**
+   * 
+   * @param {string} date
+   * @returns {Promise<Object>} the date's activities
+   */
+  getDate:function (date)
   {
-    var a = await module.exports.getbdate(date);
-    if(a != null)
-    {
-      if(a=="empty")
-        return {};
-      return a;
-    }
-    else
-    {
+    return this.updateDate(date).then(a=>{
+      return (a=="empty"?{}:a);
+    });
+  },
+  /**
+   * 
+   * @param {string|Number} day
+   * @returns {Promise<Object>} the day's activities
+   */
+  getNormal:function (day)
+  {
+    return normal.child(day).once('value').then(snap=>snap.val());
+  },
+  /**
+   * removes all activities in a certain date including the activities that were originally copied there from the normal data
+   * @param {string} date
+   */
+  removeDate:function (date)
+  {
+    return special.child(date).set("empty");
+  },
+  /**
+   * removes a date completely from the database,
+   * if you try to access the date again it will update itself according to the normal data
+   * @param {string} date
+   */
+  deleteDate:function(date){
+    return special.child(date).remove();
+  },
+  /**
+   * removes all activities of the given day
+   * @param {string|Number} day
+   */
+  removeNormal:function (day)
+  {
+    return normal.child(day).remove();
+  },
+  /**
+   * removes an activity from a day
+   * @param {string|Number} day
+   * @param {any} activity 
+   */
+  activityRemoveNormal: function (day,activity)
+  {
+    return normal.child(day).child(activity).remove();
+  },
+  /**
+   * 
+   * @param {string} date 
+   * @param {any} activity 
+   */
+  activityRemoveDate:function (date,activity)
+  {
+    return this.updateDate(date).then(()=>this.activityRemoveDateProto(date,activity));
+  },
+  /**
+   * given an activity and an activity name
+   * if the date already contains such an activity it edits said activity
+   * otherwise, it creates a new one
+   * @param {string} date 
+   * @param {string} activity 
+   * @param {any} value 
+   */
+  editDate:function (date,activity,value)
+  {
+    return this.updateDate(date).then(()=>this.editDateProto(date,activity,value));
+  },
+  /**
+   * given an activity and an activity name
+   * if the day already contains such an activity it edits said activity
+   * otherwise, it creates a new one
+   * @param {string | Number} day 
+   * @param {string} activity 
+   * @param {any} value 
+   */
+  editNormal:function (day,activity,value)
+  {
+    return normal.child(day).child(activity).set(value);
+  },
+  /**
+   * 
+   * @param {string} date 
+   */
+  updateDate:function (date){
+    return this.getDateProto(date).then(data=>{
+      if(data!=null)return data;
       var b = date.split("-");
       var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1);
-      var nor = await module.exports.getnormal(c.getDay());
-      await module.exports.setdate(date,nor);
-      return nor;
-    }
-  },
-  getnormal:async function (day)
-  {
-    var a = await normal.child(day).once('value',function(snapshot)
-    {
-      return snapshot;
+      return this.getNormal(c.getDay())
+        .then(normalData=>{
+          this.setDate(date,normalData);
+          return normalData;
+        });
     });
-    return JSON.parse(JSON.stringify(a));
-  },
-  removedate:function (date)
-  {
-    special.child(date).set("empty");
-  },
-  deletedate:function(date){
-    special.child(date).remove();
-  }
-  ,
-  removenormal:function (date)
-  {
-    normal.child(date).remove();
-  },
-  actremovenormal:async function (date,activity)
-  {
-    normal.child(date).child(activity).remove();
-  },
-  actremovedate:async function (date,activity)
-  {
-    var a = await module.exports.getbdate(date);
-    if(a == null)
-    {
-      var b = date.split("-");
-      var c = new Date(parseInt(b[2]),parseInt(b[1]),parseInt(b[0]),1,1,1,1);
-      var nor = module.exports.getnormal(c.getDay());
-      module.exports.setdate(date,nor);
-    }
-    module.exports.actremovebdate(date,activity);
-  },
-  editdate:async function (date,activity,value)
-  {
-    var a = await module.exports.getbdate(date);
-    if(a == null)
-    {
-      var b = date.split("-");
-      var c = new Date(parseInt(b[2]),parseInt(b[1]),parseInt(b[0]),1,1,1,1);
-      var nor = module.exports.getnormal(c.getDay());
-      module.exports.setdate(date,nor);
-    }
-    module.exports.editbdate(date,activity,value);
-  },
-
-  //edit normal days
-  editnormal:function (day,activity,value)
-  {
-    normal.child(day).child(activity).set(value);
   },
 
   //DON'T USE THESE, THEY ARE MADE FOR THE USE OF OTHER COMMANDS
-  getbdate:async function (date)
+  /**
+   * 
+   * @param {string} date 
+   */
+  getDateProto:function (date)
   {
-    var a = await special.child(date).once('value',function(snapshot)
-    {
-      return snapshot;
-    });
-    return JSON.parse(JSON.stringify(a));
+    return special.child(date).once('value').then(snap=>snap.val());
   },
-  editbdate:function(date,activity,value)
+  /**
+   * 
+   * @param {string} date 
+   * @param {string} activity
+   * @param {any} value 
+   */
+  editDateProto:function(date,activity,value)
   {
-    special.child(date).child(activity).set(value);
+    return special.child(date).child(activity).set(value);
   },
-  setdate:function (date,value)
+  /**
+   * 
+   * @param {string} date 
+   * @param {any} value 
+   */
+  setDate:function (date,value)
   {
-    special.child(date).set(value);
+    return special.child(date).set(value);
   },
-  setnormal:function (date,value)
+  /**
+   * 
+   * @param {string|Number} date 
+   * @param {any} value 
+   */
+  setNormal:function (date,value)
   {
-    normal.child(date).set(value);
+    return normal.child(date).set(value);
   },
-  actremovebdate:function (date,activity)
+  /**
+   * 
+   * @param {string} date 
+   * @param {string} activity 
+   */
+  activityRemoveDateProto:function (date,activity)
   {
-    special.child(date).child(activity).remove();
+    return special.child(date).child(activity).remove();
   }
 };
