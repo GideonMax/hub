@@ -6,7 +6,7 @@ class Stats{
     * @param {String} name name of category
     */
   createCategory(name){
-    Post("/stats/directory/new",{dir:name});
+    return Post("/stats/directory/new",{dir:name});
   }
   /**
      * adds a new stat
@@ -14,7 +14,7 @@ class Stats{
      * @param {String} name stat name
      */
   addStat(category,name){
-    Post("/stats/stat/new",{dir:category,name:name});
+    return Post("/stats/stat/new",{dir:category,name:name});
   }
   /**
      * gets a stat's value
@@ -34,7 +34,7 @@ class Stats{
      * @param {Number} value stat's value
      */
   setStat(category,name,value){
-    Post("/stats/stat/set",{dir:category,name:name,value:value});
+    return Post("/stats/stat/set",{dir:category,name:name,value:value});
   }
   /**
      * removes a stat
@@ -42,7 +42,7 @@ class Stats{
      * @param {string} name 
      */
   removeStat(category,name){
-    Post("/stats/stat/remove",{dir:category,name:name});
+    return Post("/stats/stat/remove",{dir:category,name:name});
   }
   /**
      * increases a stat's value by a specified amount
@@ -51,21 +51,21 @@ class Stats{
      * @param {Number} amount the amount to increase by
      */
   increaseStat(category,name,amount){
-    Post("/stats/stat/increase",{dir:category,name:name,value:amount});
+    return Post("/stats/stat/increase",{dir:category,name:name,value:amount});
   }
   /**
      * sets all stat values in a category to 0
      * @param {String} name category name
      */
   resetCategory(name){
-    Post("/stats/directory/reset",{dir:name});
+    return Post("/stats/directory/reset",{dir:name});
   }
   /**
      * deletes a category, this action is irreversible 
      * @param {String} name category name
      */
   removeCategory(name){
-    Post("/stats/directory/remove",{dir:name});
+    return Post("/stats/directory/remove",{dir:name});
   }
   /**
      * returns all stat names in a category
