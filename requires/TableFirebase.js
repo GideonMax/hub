@@ -111,6 +111,7 @@ module.exports ={
       var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1);
       return this.getNormal(c.getDay())
         .then(normalData=>{
+          if(normalData==null)normalData="empty";
           this.setDate(date,normalData);
           return normalData;
         });
