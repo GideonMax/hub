@@ -1,6 +1,3 @@
-
-
-
 var serviceAccount = require("../data/fire.json");
 var admin = require("firebase-admin");
 
