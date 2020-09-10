@@ -1,53 +1,55 @@
-import {Post}from './Post.js';
-const pl = ['pool','sadna','hub','pnay','maz','3olam','2olam','1olam',];
-const Times =['1700','1730','1800','1830','1900','1930','2000','2030','2100'];
-class Table extends HTMLElement{
-  static get observedAttributes(){
-    return ['size','width','height','day','normal','root'];
+import { Post } from './Post.js';
+const Places = ['pool', 'sadna', 'hub', 'pnay', 'maz', '3olam', '2olam', '1olam',];
+const Times = ['1700', '1730', '1800', '1830', '1900', '1930', '2000', '2030', '2100'];
+class Table extends HTMLElement {
+  static get observedAttributes() {
+    return ['size', 'width', 'height', 'day', 'normal', 'root'];
   }
-  constructor(){
+  constructor() {
     super();
-    this.shadow= this.attachShadow({mode:'open'});
+    this.shadow = this.attachShadow({ mode: 'open' });
     var link = document.createElement("link");
-    link.rel="stylesheet";
-    link.href="/TableWC.css";
+    link.rel = "stylesheet";
+    link.href = "/TableWC.css";
     this.shadow.appendChild(link);
     this.table = document.createElement("table");
     this.shadow.appendChild(this.table);
   }
-  makeDateRequestData(){
-    if(this.hasAttribute("normal")){
+  makeDateRequestData() {
+    if (this.hasAttribute("normal")) {
       return {
         day: this.getAttribute("day"),
         normal: 'true'
       };
     }
-    let root="";
-    if(this.hasAttribute("root")){
-      root=this.getAttribute("root");
+    let root = "";
+    if (this.hasAttribute("root")) {
+      root = this.getAttribute("root");
     }
-    else{
+    else {
       var date = new Date();
-      root= date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
+      root = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
     }
-    return{
+    return {
       day: this.getAttribute("day"),
-      root:root,
-      normal:'false'
+      root: root,
+      normal: 'false'
     };
   }
 
-  connectedCallback(){
-    
+  connectedCallback() {
+
     var size = this.getAttribute('size');
-    this.table.style.fontSize=size;
+    this.table.style.fontSize = size;
     var width = this.getAttribute('width');
     var height = this.getAttribute('height');
-    this.table.style.width=width;
-    this.table.style.height=height;
-    Post("/table.dat",this.makeDateRequestData())
-      .then(res=>res.json())
-      .then(data=>{
+    this.table.style.width = width;
+    this.table.style.height = height;
+    Post("/table.dat", this.makeDateRequestData())
+      .then(res => res.json())
+      .then(data => {
+        let tableMatrix=ProcessActivitiesIntoTable(data);
+
         this.table.innerHTML = `
                <tr>
                     <th class="empty"></th>
@@ -61,54 +63,28 @@ class Table extends HTMLElement{
                     <th>אולם ראשון</th>
                </tr>
                `;
-        var tableMatrix =new Array(8);
         for (var i = 0; i < tableMatrix.length; i++) {
-          tableMatrix[i]= new Array(8);
-          for(var j = 0; j < 8; j++)
-          {
-            tableMatrix[i][j]={clr:"#000",border:false};//set all the table's cells to blank by default
-          }
-        }
-        for(var k in data){
-          var act =data[k];//i is the description of an activity from the database
-          tableMatrix[Times.indexOf(act.tstart)][pl.indexOf(act.place)]={border:true,clr:act.clr,co:act.co,name:act.name};
-          for(var t = Times.indexOf(act.tstart)+1;t<Times.indexOf(act.tend);t++)
-          {
-            tableMatrix[t][pl.indexOf(act.place)]={clr:act.clr,border:true};
-          }
-        }
-        /*
-      At this point tableMatrix is an Object[][] describing the contents of the table
-      the cells' properties are:
-      clr: color
-      border: should the cell have a border on the right side
-      co: the activity's coach
-      name: the name of the activity
-      */
-        for(var i=0;i<tableMatrix.length; i++){
-          var row=tableMatrix[i];
+          var row = tableMatrix[i];
           var trow = document.createElement("tr");
-        
-          var timeTD=document.createElement("td");
-          var time =Times[tableMatrix.indexOf(row)];
-          timeTD.innerText= time.slice(0,2)+":"+time.slice(2);
+
+          var timeTD = document.createElement("td");
+          var time = Times[i];
+          timeTD.innerText = time.slice(0, 2) + ":" + time.slice(2);
           trow.appendChild(timeTD);
-          for(var j =0;j<row.length;j++)
-          {
-            var collumn=row[j];
+          for (var j = 0; j < row.length; j++) {
+            var cell = row[j];
             var td = document.createElement("td");
             td.className = "card";
             td.style.border = "none";
-            if(collumn.hasOwnProperty('name'))
-            {
-              td.innerHTML=`<h3 class="cardtitle" style="color: ${collumn.clr}">
-            <b>${collumn.name}</b>
+            if (cell.hasOwnProperty('name')) {
+              td.innerHTML = `<h3 class="cardtitle" style="color: ${cell.clr}">
+            <b>${cell.name}</b>
             </h3>
-            <h5 class="carddesc">${collumn.co}</h5>`;
+            <h5 class="carddesc">${cell.co}<br>${cell.amount}</h5>`;
             }
-            if(collumn.border){
+            if (cell.border) {
               td.style.border = "0px solid transparent";
-              td.style.borderRightColor = collumn.clr;
+              td.style.borderRightColor = cell.clr;
               td.style.borderRightWidth = "2px";
               td.style.backgroundColor = "#EEEEEE";
               td.style.textAlign = "Right";
@@ -122,6 +98,28 @@ class Table extends HTMLElement{
       });
   }
 
+}
+/**
+ * 
+ * @param {object} data
+ * @returns {object[][]}
+ */
+function ProcessActivitiesIntoTable(data) {
+  let tableMatrix = new Array(Places.length);
+  for (var i = 0; i < tableMatrix.length; i++) {
+    tableMatrix[i] = new Array(8);
+    for (var j = 0; j < 8; j++) {
+      tableMatrix[i][j] = { clr: "#000", border: false };//set all the table's cells to blank by default
+    }
+  }
+  for (var k in data) {
+    var act = data[k];//act is the description of an activity from the database
+    tableMatrix[Times.indexOf(act.tstart)][Places.indexOf(act.place)] = { border: true, clr: act.clr, co: act.co, name: act.name, amount:data.ParticipantAmount };
+    for (var t = Times.indexOf(act.tstart) + 1; t < Times.indexOf(act.tend); t++) {
+      tableMatrix[t][Places.indexOf(act.place)] = { clr: act.clr, border: true };
+    }
+  }
+  return tableMatrix;
 }
 
 window.customElements.define('time-table', Table);

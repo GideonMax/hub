@@ -40,13 +40,14 @@ app.post("/remove.post",(req,res)=>{
   res.send("success");
 });
 app.post("/actAdd.post",(req,res)=>{
+  let body=req.body;
+  body.data.ParticipantAmount=0;
   if(req.body.normal==='true'){
-    TableFirebase.editNormal(req.body.day,req.body.data.name,req.body.data);
-
+    TableFirebase.editNormal(body.day,body.data.name,body.data);
   }
   else{
     var datestring = getRequestDate(req);
-    TableFirebase.editDate(datestring,req.body.data.name,req.body.data);
+    TableFirebase.editDate(datestring,body.data.name,body.data);
   }
   res.send("success");
 });
@@ -76,7 +77,6 @@ function getRequestDate(req){
   var rootDate= stringToDate(req.body.root);
   var date= new Date(rootDate.getTime()+ (parseInt(req.body.day)*1000*60*60*24) );
   return dateToString(date);
-
 }
 function stringToDate(str){
   var root= str.split("-");
