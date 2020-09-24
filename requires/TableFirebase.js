@@ -10,16 +10,15 @@ var ref = db.ref('/');
 
 var normal = ref.child("normal");
 var special = ref.child("special");
-module.exports ={
+module.exports = {
   /**
    * 
    * @param {string} date
    * @returns {Promise<Object>} the date's activities
    */
-  getDate:function (date)
-  {
-    return this.updateDate(date).then(a=>{
-      return (a=="empty"?{}:a);
+  getDate: function (date) {
+    return this.updateDate(date).then(a => {
+      return (a == "empty" ? {} : a);
     });
   },
   /**
@@ -27,16 +26,14 @@ module.exports ={
    * @param {string|Number} day
    * @returns {Promise<Object>} the day's activities
    */
-  getNormal:function (day)
-  {
-    return normal.child(day).once('value').then(snap=>snap.val());
+  getNormal: function (day) {
+    return normal.child(day).once('value').then(snap => snap.val());
   },
   /**
    * removes all activities in a certain date including the activities that were originally copied there from the normal data
    * @param {string} date
    */
-  removeDate:function (date)
-  {
+  removeDate: function (date) {
     return special.child(date).set("empty");
   },
   /**
@@ -44,15 +41,14 @@ module.exports ={
    * if you try to access the date again it will update itself according to the normal data
    * @param {string} date
    */
-  deleteDate:function(date){
+  deleteDate: function (date) {
     return special.child(date).remove();
   },
   /**
    * removes all activities of the given day
    * @param {string|Number} day
    */
-  removeNormal:function (day)
-  {
+  removeNormal: function (day) {
     return normal.child(day).remove();
   },
   /**
@@ -60,8 +56,7 @@ module.exports ={
    * @param {string|Number} day
    * @param {any} activity 
    */
-  activityRemoveNormal: function (day,activity)
-  {
+  activityRemoveNormal: function (day, activity) {
     return normal.child(day).child(activity).remove();
   },
   /**
@@ -69,9 +64,8 @@ module.exports ={
    * @param {string} date 
    * @param {any} activity 
    */
-  activityRemoveDate:function (date,activity)
-  {
-    return this.updateDate(date).then(()=>this.activityRemoveDateProto(date,activity));
+  activityRemoveDate: function (date, activity) {
+    return this.updateDate(date).then(() => this.activityRemoveDateProto(date, activity));
   },
   /**
    * given an activity and an activity name
@@ -81,9 +75,8 @@ module.exports ={
    * @param {string} activity 
    * @param {any} value 
    */
-  editDate:function (date,activity,value)
-  {
-    return this.updateDate(date).then(()=>this.editDateProto(date,activity,value));
+  editDate: function (date, activity, value) {
+    return this.updateDate(date).then(() => this.editDateProto(date, activity, value));
   },
   /**
    * given an activity and an activity name
@@ -93,23 +86,22 @@ module.exports ={
    * @param {string} activity 
    * @param {any} value 
    */
-  editNormal:function (day,activity,value)
-  {
+  editNormal: function (day, activity, value) {
     return normal.child(day).child(activity).set(value);
   },
   /**
    * 
    * @param {string} date 
    */
-  updateDate:function (date){
-    return this.getDateProto(date).then(data=>{
-      if(data!=null)return data;
+  updateDate: function (date) {
+    return this.getDateProto(date).then(data => {
+      if (data != null) return data;
       var b = date.split("-");
-      var c = new Date(parseInt(b[2]),parseInt(b[1])-1,parseInt(b[0]),1,1,1,1);
+      var c = new Date(parseInt(b[2]), parseInt(b[1]) - 1, parseInt(b[0]), 1, 1, 1, 1);
       return this.getNormal(c.getDay())
-        .then(normalData=>{
-          if(normalData==null)normalData="empty";
-          this.setDate(date,normalData);
+        .then(normalData => {
+          if (normalData == null) normalData = "empty";
+          this.setDate(date, normalData);
           return normalData;
         });
     });
@@ -120,9 +112,8 @@ module.exports ={
    * 
    * @param {string} date 
    */
-  getDateProto:function (date)
-  {
-    return special.child(date).once('value').then(snap=>snap.val());
+  getDateProto: function (date) {
+    return special.child(date).once('value').then(snap => snap.val());
   },
   /**
    * 
@@ -130,8 +121,7 @@ module.exports ={
    * @param {string} activity
    * @param {any} value 
    */
-  editDateProto:function(date,activity,value)
-  {
+  editDateProto: function (date, activity, value) {
     return special.child(date).child(activity).set(value);
   },
   /**
@@ -139,8 +129,7 @@ module.exports ={
    * @param {string} date 
    * @param {any} value 
    */
-  setDate:function (date,value)
-  {
+  setDate: function (date, value) {
     return special.child(date).set(value);
   },
   /**
@@ -148,8 +137,7 @@ module.exports ={
    * @param {string|Number} date 
    * @param {any} value 
    */
-  setNormal:function (date,value)
-  {
+  setNormal: function (date, value) {
     return normal.child(date).set(value);
   },
   /**
@@ -157,8 +145,7 @@ module.exports ={
    * @param {string} date 
    * @param {string} activity 
    */
-  activityRemoveDateProto:function (date,activity)
-  {
+  activityRemoveDateProto: function (date, activity) {
     return special.child(date).child(activity).remove();
   }
 };

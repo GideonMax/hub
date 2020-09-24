@@ -1,61 +1,63 @@
-'use strict'
+'use strict';
+
+// eslint-disable-next-line no-unused-vars
+
 class FB {
-    constructor(admin, serviceAccount, dbURL){
-        this.admin = admin;
-        this.serviceAccount = serviceAccount;
-        if(!this.admin.apps.length) {
-            this.connnect(dbURL);
-        }
-        this.db = this.admin.database();
+  /**
+   * 
+   * @param {import("firebase-admin")} admin 
+   * @param {import("firebase-admin").ServiceAccount} serviceAccount 
+   * @param {String} dbURL 
+   */
+  constructor(admin, serviceAccount, dbURL) {
+    this.admin = admin;
+    this.serviceAccount = serviceAccount;
+    if (!this.admin.apps.length) {
+      this.connnect(dbURL);
     }
+    this.db = this.admin.database();
+    this.ref = this.db.ref("/");
+  }
 
-    connnect(dbURL) {
-        this.app = this.admin.initializeApp({
-            credential: this.admin.credential.cert(this.serviceAccount),
-            databaseURL: `https://${dbURL}.firebaseio.com`
-        });
-        // console.log(this.app);
-    }
-    addDBRow(path, key, data){
-        var ref =  this.db.ref("/");
-        // let date = `${new Date().getDate()}_${new Date().getMonth()}_${new Date().getFullYear()}`;
-        let ItemREF = ref.child(path).update({
-        [key]: data
-        });
-        var key = ItemREF.key;
-        return key;
-    }
+  connnect(dbURL) {
+    this.app = this.admin.initializeApp({
+      credential: this.admin.credential.cert(this.serviceAccount),
+      databaseURL: `https://${dbURL}.firebaseio.com`
+    });
+  }
+  addDBRow(path, key, data) {
+    return this.ref.child(path).update({
+      [key]: data
+    });
+  }
 
-    updateDBRow(path, object){
-        var ref = this.db.ref(`/`);
-        ref.child(path).update(object);
-    }
+  updateDBRow(path, object) {
+    this.ref.child(path).update(object);
+  }
 
-    readDBItems(path,cb){
-        var db = this.admin.database();
-        var ref = db.ref("/");
-        var itemsREF = ref.child(path);
-        var a = 0
-        return itemsREF.once('value');
-    }
+  readDBItems(path) {
+    return this.ref.child(path).once('value');
+  }
 
-    deleteDBItem(path) {
-      var db = this.admin.database();
-      var ref = db.ref("/items");
-      var item = ref.child(path);
-      item.remove();
-    }
+  deleteDBItem(path) {
+    return this.ref.child("items").child(path).remove();
+  }
 
-    readDBItem(path, id) {
-        var ref =  this.db.ref("/");
-        var itemsREF = ref.child(`${path}/${id}`);
-        itemsREF.on("value", function(snapshot) {
-          console.log(snapshot.val());
-          return snapshot.val();
-        }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-        });
+  readDBItem(path, id) {
+    return this.ref.child(`${path}/${id}`)
+      .once('value')
+      .then(snapshot => snapshot.val());
 
-    }
+    /*
+    var ref = this.db.ref("/");
+    var itemsREF = ref.child(`${path}/${id}`);
+    itemsREF.on("value", function (snapshot) {
+      console.log(snapshot.val());
+      return snapshot.val();
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+    d*/
+  }
 }
 module.exports = FB;
